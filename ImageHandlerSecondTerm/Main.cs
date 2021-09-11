@@ -1,19 +1,16 @@
-﻿using System;
+﻿using MethodLibrary;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ImageHandlerSecondTerm
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         List<int>? listOfDifferentNumbers;
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
@@ -127,103 +124,45 @@ namespace ImageHandlerSecondTerm
 
         private async Task RenderDataGridView(PictureBox picture, string fileName)
         {
-            dataGridView1.Rows.Clear();
-            listOfDifferentNumbers = new List<int>();
+           
             var bitmap = new Bitmap(fileName);
             if (!PictureValidate(bitmap))
             {
                 return;
             }
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView2.Columns.Clear();
+            
+            bitmap = BitmapHandler.GetGreyscaleBitmap(bitmap);
             picture.Image = bitmap;
-            var polBitmap = new Bitmap(bitmap);
             var bitmapWidth = bitmap.Width;
             var bitmapHeight = bitmap.Height;
 
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                for (int j = 0; j < bitmapHeight; j++)
-                {
-                    var color = (polBitmap.GetPixel(i, j).R + polBitmap.GetPixel(i, j).G + polBitmap.GetPixel(i, j).B) / 3;
-                    polBitmap.SetPixel(i, j, Color.FromArgb(color, color, color));
-                }
-            }
 
-
-            picture.Image = polBitmap;
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                dataGridView1.Columns.Add(i + 1 + "", i + 1 + "");
-            }
-
-            dataGridView1.Rows.Add(bitmapHeight);
-
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                DataGridViewRow row2 = dataGridView1.Rows[i];
-                dataGridView1.Columns[i].Width = 50;
-            }
-
-            await Task.Factory.StartNew(() =>
-            {
-                for (int i = 0; i < bitmapWidth; i++)
-                {
-                    for (int j = 0; j < bitmapHeight; j++)
-                    {
-                        dataGridView1[i, j].Value = (bitmap.GetPixel(i, j).R + bitmap.GetPixel(i, j).G + bitmap.GetPixel(i, j).B) / 3;
-                    }
-                }
-
-            });
-
-
-            //add different numbers to list
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                for (int j = 0; j < bitmapHeight; j++)
-                {
-                    var number = int.Parse(dataGridView1[j, i].Value.ToString()!);
-                    if (!listOfDifferentNumbers.Contains(number))
-                    {
-                        listOfDifferentNumbers.Add(number);
-                    }
-                }
-            }
-
+            dataGridView1 = await WinFormsComponentHandler.AddColAndRow(bitmapWidth, bitmapHeight, dataGridView1);
+            dataGridView1 = await WinFormsComponentHandler.AddDataToDataGridView(BitmapHandler.GetGreyscaleArray(bitmap), dataGridView1);
+            listOfDifferentNumbers = await WinFormsComponentHandler.GetDiffItemsFromDataGrid(dataGridView1 ,bitmapWidth, bitmapHeight);
             var countOfDiffElements = listOfDifferentNumbers.Count;
 
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                if (i == 0)
-                {
-                    dataGridView2.Columns.Add(i + 1 + "", "");
-                }
-                dataGridView2.Columns.Add(i + 1 + "", i + 1 + "");
+            dataGridView2 = await WinFormsComponentHandler.AddColAndRow(bitmapWidth, countOfDiffElements, dataGridView2);
 
-            }
-
-            dataGridView2.Rows.Add(countOfDiffElements);
-
-            for (int i = 0; i < bitmapWidth; i++)
-            {
-                dataGridView2.Columns[i].Width = 50;
-            }
-
+            dataGridView2.EnableHeadersVisualStyles = false;
+            dataGridView2.RowHeadersWidth = 70;
 
             //add to dataGridView2 different numbers to first column
             for (int i = 0; i < countOfDiffElements; i++)
             {
-                dataGridView2[0, i].Value = listOfDifferentNumbers[i];
+                dataGridView2.Rows[i].HeaderCell.Value = listOfDifferentNumbers[i].ToString();
+                dataGridView2.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
+               
+
             }
 
             var getPResult = await GetPByAngleAsync(int.Parse(textBox1.Text), bitmap);
-
-            for (int i = 0; i < countOfDiffElements; i++)
-            {
-                for (int j = 1; j < bitmapWidth; j++)
-                {
-                    dataGridView2[j, i].Value = getPResult[i, j - 1];
-                }
-            }
+            dataGridView2 = await WinFormsComponentHandler.AddDataToDataGridView(getPResult, dataGridView2);
+           
         }
 
         private bool PictureValidate(Bitmap bitmap)
@@ -273,5 +212,9 @@ namespace ImageHandlerSecondTerm
             }
         }
 
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace ImageHandlerSecondTerm
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace ImageHandlerSecondTerm
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -93,6 +93,7 @@ namespace ImageHandlerSecondTerm
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(54, 23);
             this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "135";
             // 
             // dataGridView2
             // 
@@ -153,7 +154,7 @@ namespace ImageHandlerSecondTerm
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.OpenImage4_Click);
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -166,8 +167,9 @@ namespace ImageHandlerSecondTerm
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "Main";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

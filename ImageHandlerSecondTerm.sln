@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHandlerSecondTerm", "ImageHandlerSecondTerm\ImageHandlerSecondTerm.csproj", "{FFC4FD71-F43E-4014-87AF-FBDF0CD58A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageHandlerSecondTerm", "ImageHandlerSecondTerm\ImageHandlerSecondTerm.csproj", "{FFC4FD71-F43E-4014-87AF-FBDF0CD58A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodLibrary", "MethodLibrary\MethodLibrary.csproj", "{A9627987-8772-4011-A453-1DB467660E23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FFC4FD71-F43E-4014-87AF-FBDF0CD58A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC4FD71-F43E-4014-87AF-FBDF0CD58A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC4FD71-F43E-4014-87AF-FBDF0CD58A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9627987-8772-4011-A453-1DB467660E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9627987-8772-4011-A453-1DB467660E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9627987-8772-4011-A453-1DB467660E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9627987-8772-4011-A453-1DB467660E23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
