@@ -7,6 +7,28 @@ namespace MethodLibrary
 {
     public class WinFormsComponentHandler
     {
+        public static string? IsOpenFileDialogOk(OpenFileDialog fileDialog)
+        {
+            fileDialog = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "bmp",
+                Filter = "bmp files (*.bmp)|*.bmp",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            return fileDialog.ShowDialog() == DialogResult.OK ? fileDialog.FileName : null;
+        }
+
         public static async Task<DataGridView> AddColAndRow(int width, int height, DataGridView dataGrid)
         {
             return await Task.Factory.StartNew(() =>
@@ -65,8 +87,11 @@ namespace MethodLibrary
                     }
                 }
 
+                resultList.Sort();
+
                 return resultList;
             });
         }
+
     }
 }

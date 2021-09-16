@@ -10,79 +10,32 @@ namespace ImageHandlerSecondTerm
     public partial class Main : Form
     {
         List<int>? listOfDifferentNumbers;
+        string[] valuesForSmallDataGrid = { "К", "КПП", "ДПП", "ЕУС", "R" };
         public Main()
         {
             InitializeComponent();
+            burgerPanel.Height = 1500;
+            burgerPanel.Location = new Point(0,-400);
+            panel1.Location = new Point(0, 0);
+            panel1.Width = this.Width;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-
-        }
-
-        //return array with values that contain 
-        private async Task<int[,]> GetPByAngleAsync(int angle, Bitmap bitmap)
-        {
-            var bitmapWidth = bitmap.Width;
-            var bitmapHeight = bitmap.Height;
-            var listOfDifferentNumbersCount = listOfDifferentNumbers!.Count;
-
-            int[,] arrForP = new int[bitmapWidth, bitmapHeight];
-
-            for (int i = 0; i < bitmapWidth; i++)
+            burgerPanel.Visible = false;
+            dataGridView3 = await WinFormsComponentHandler.AddColAndRow(4, 5, dataGridView3);
+            dataGridView3.RowHeadersWidth = 60;
+            dataGridView3.EnableHeadersVisualStyles = false;
+            for (int i = 1; i < 5; i++)
             {
-                for (int j = 0; j < bitmapHeight; j++)
-                {
-                    arrForP[i, j] = int.Parse(dataGridView1[i, j].Value.ToString()!);
-                }
+                dataGridView3[i - 1,0].Value = valuesForSmallDataGrid[i];
+                dataGridView3.Rows[i].HeaderCell.Value = i.ToString();
+                dataGridView3.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
+                dataGridView3.Columns[i - 1].Width = 70;
             }
 
-            int[,] newArr = new int[listOfDifferentNumbersCount, bitmapHeight];
-
-            var ii = 0;
-            var jj = 0;
-            var count = 0;
-
-            await Task.Factory.StartNew(() =>
-            {
-                foreach (var item in listOfDifferentNumbers)
-                {
-                    for (int step = 1; step < bitmapWidth; step++)
-                    {
-                        for (int row = 0; row < bitmapWidth; row++)
-                        {
-                            for (int col = 0; col < bitmapHeight; col++)
-                            {
-                                if (angle == 0 && col + step < bitmapWidth && arrForP[row, col] == item && arrForP[row, col + step] == item)
-                                {
-                                    count++;
-                                }
-                                else if (angle == 135 && col + step < bitmapHeight &&
-                                        row + step < bitmapWidth &&
-                                        arrForP[row, col] == item &&
-                                        arrForP[row + step, col + step] == item)
-                                {
-                                    count++;
-                                }
-
-                            }
-                        }
-
-                        newArr[ii, jj++] = count;
-                        if (jj == bitmapHeight - 1)
-                        {
-                            jj = 0;
-                        }
-
-                        count = 0;
-                    }
-
-                    ii++;
-                }
-
-            });
-
-            return newArr;
+            dataGridView3.ScrollBars = ScrollBars.None;
+               
         }
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
@@ -99,34 +52,12 @@ namespace ImageHandlerSecondTerm
             pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
         }
 
-        private string? IsOpenFileDialogOk()
+
+        private async Task RenderDataGridViews(PictureBox picture, string fileName)
         {
-            openFileDialog1 = new OpenFileDialog
-            {
-                InitialDirectory = @"C:\",
-                Title = "Browse Text Files",
 
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "bmp",
-                Filter = "bmp files (*.bmp)|*.bmp",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-            };
-
-            return openFileDialog1.ShowDialog() == DialogResult.OK ? openFileDialog1.FileName : null;
-        }
-
-
-        private async Task RenderDataGridView(PictureBox picture, string fileName)
-        {
-           
             var bitmap = new Bitmap(fileName);
-            if (!PictureValidate(bitmap))
+            if (!BitmapHandler.PictureValidate(bitmap, bitmap.Width, bitmap.Height))
             {
                 return;
             }
@@ -134,7 +65,7 @@ namespace ImageHandlerSecondTerm
             dataGridView2.Rows.Clear();
             dataGridView1.Columns.Clear();
             dataGridView2.Columns.Clear();
-            
+
             bitmap = BitmapHandler.GetGreyscaleBitmap(bitmap);
             picture.Image = bitmap;
             var bitmapWidth = bitmap.Width;
@@ -143,78 +74,103 @@ namespace ImageHandlerSecondTerm
 
             dataGridView1 = await WinFormsComponentHandler.AddColAndRow(bitmapWidth, bitmapHeight, dataGridView1);
             dataGridView1 = await WinFormsComponentHandler.AddDataToDataGridView(BitmapHandler.GetGreyscaleArray(bitmap), dataGridView1);
-            listOfDifferentNumbers = await WinFormsComponentHandler.GetDiffItemsFromDataGrid(dataGridView1 ,bitmapWidth, bitmapHeight);
+            listOfDifferentNumbers = await WinFormsComponentHandler.GetDiffItemsFromDataGrid(dataGridView1, bitmapWidth, bitmapHeight);
             var countOfDiffElements = listOfDifferentNumbers.Count;
 
             dataGridView2 = await WinFormsComponentHandler.AddColAndRow(bitmapWidth, countOfDiffElements, dataGridView2);
-
             dataGridView2.EnableHeadersVisualStyles = false;
             dataGridView2.RowHeadersWidth = 70;
+           
 
             //add to dataGridView2 different numbers to first column
             for (int i = 0; i < countOfDiffElements; i++)
             {
+               
                 dataGridView2.Rows[i].HeaderCell.Value = listOfDifferentNumbers[i].ToString();
                 dataGridView2.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
-               
 
             }
 
-            var getPResult = await GetPByAngleAsync(int.Parse(textBox1.Text), bitmap);
+            var getPResult = await BitmapHandler.GetPByAngleAsync(int.Parse(textBox1.Text), bitmap, dataGridView1, listOfDifferentNumbers);
             dataGridView2 = await WinFormsComponentHandler.AddDataToDataGridView(getPResult, dataGridView2);
-           
         }
 
-        private bool PictureValidate(Bitmap bitmap)
-        {
-            if (bitmap.Width != 50 || bitmap.Height != 50)
-            {
-                MessageBox.Show("Incorrect size image", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
-        }
 
         private async void OpenImage1_Click(object sender, EventArgs e)
         {
-            var isOpen = IsOpenFileDialogOk();
+            var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
             if (!string.IsNullOrEmpty(isOpen))
             {
-                await RenderDataGridView(pictureBox1, isOpen);
+                await RenderDataGridViews(pictureBox1, isOpen);
+                var result = BitmapHandler.GetArrayForResultTable(listOfDifferentNumbers!, dataGridView2);
+                for (int i = 0; i < 4; i++)
+                {
+                    dataGridView3[i, 1].Value = result[i];
+                }
             }
         }
 
         private async void OpenImage2_Click(object sender, EventArgs e)
         {
-            var isOpen = IsOpenFileDialogOk();
+            var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
             if (!string.IsNullOrEmpty(isOpen))
             {
-                await RenderDataGridView(pictureBox2, isOpen);
+                await RenderDataGridViews(pictureBox2, isOpen);
+                var result = BitmapHandler.GetArrayForResultTable(listOfDifferentNumbers!, dataGridView2);
+                for (int i = 0; i < 4; i++)
+                {
+                    dataGridView3[i, 2].Value = result[i];
+                }
             }
         }
 
         private async void OpenImage3_Click(object sender, EventArgs e)
         {
-            var isOpen = IsOpenFileDialogOk();
+            var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
             if (!string.IsNullOrEmpty(isOpen))
             {
-                await RenderDataGridView(pictureBox3, isOpen);
+                await RenderDataGridViews(pictureBox3, isOpen);
+                var result = BitmapHandler.GetArrayForResultTable(listOfDifferentNumbers!, dataGridView2);
+                for (int i = 0; i < 4; i++)
+                {
+                    dataGridView3[i, 3].Value = result[i];
+                }
             }
         }
 
         private async void OpenImage4_Click(object sender, EventArgs e)
         {
-            var isOpen = IsOpenFileDialogOk();
+            var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
             if (!string.IsNullOrEmpty(isOpen))
             {
-                await RenderDataGridView(pictureBox4, isOpen);
+                await RenderDataGridViews(pictureBox4, isOpen);
+                var result = BitmapHandler.GetArrayForResultTable(listOfDifferentNumbers!, dataGridView2);
+                for (int i = 0; i < 4; i++)
+                {
+                    dataGridView3[i, 4].Value = result[i];
+                }
             }
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            burgerPanel.Visible = true;
+            burgerPanel.Location = new Point(0, 0);
+        }
+
+        private void Main_MouseUp(object sender, MouseEventArgs e)
+        {
+            burgerPanel.Location = new Point(-500, 0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            burgerPanel.Location = new Point(-500, 0);
         }
     }
 }
