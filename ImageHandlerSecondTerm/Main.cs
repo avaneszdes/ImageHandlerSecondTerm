@@ -93,6 +93,13 @@ namespace ImageHandlerSecondTerm
 
             var getPResult = await BitmapHandler.GetPByAngleAsync(int.Parse(textBox1.Text), bitmap, dataGridView1, listOfDifferentNumbers);
             dataGridView2 = await WinFormsComponentHandler.AddDataToDataGridView(getPResult, dataGridView2);
+
+
+            //getting result from two images
+            if(dataGridView3[3,1].Value != null)
+            {
+                var a = 4;
+            }
         }
 
 
@@ -149,6 +156,8 @@ namespace ImageHandlerSecondTerm
                 {
                     dataGridView3[i, 4].Value = result[i];
                 }
+
+
             }
         }
 
@@ -171,6 +180,31 @@ namespace ImageHandlerSecondTerm
         private void button1_Click(object sender, EventArgs e)
         {
             burgerPanel.Location = new Point(-500, 0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            var firstImgIsNotnull = dataGridView3[3, 1].Value != null;
+            var secondImgIsNotnull = dataGridView3[3, 2].Value != null;
+            var thredImgIsNotnull = dataGridView3[3, 3].Value != null;
+            var fourghtImgIsNotnull = dataGridView3[3, 4].Value != null;
+
+
+            if (firstImgIsNotnull && secondImgIsNotnull) 
+            {
+                label2.Text = "1-2 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 2].Value.ToString())).ToString();
+            }
+
+            if (firstImgIsNotnull && thredImgIsNotnull)
+            {
+                label3.Text = "1-3 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 3].Value.ToString())).ToString();
+            }
+            
+            if(firstImgIsNotnull && fourghtImgIsNotnull)
+            {
+                label4.Text = "1-2 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 4].Value.ToString())).ToString();
+            }
         }
     }
 }
