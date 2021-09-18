@@ -8,6 +8,8 @@ namespace MethodLibrary
 {
     public class BitmapHandler
     {
+
+        public static List<bool[,]> colors = new List<bool[,]>();
         public static Bitmap GetGreyscaleBitmap(Bitmap bitmap)
         {
             var result = new Bitmap(bitmap.Width, bitmap.Height);
@@ -56,6 +58,7 @@ namespace MethodLibrary
             var bitmapWidth = bitmap.Width;
             var bitmapHeight = bitmap.Height;
             var listOfDifferentNumbersCount = listOfDifferentNumbers!.Count;
+            bool [,]color = new bool[50, 50];
 
             int[,] arrForP = new int[bitmapWidth, bitmapHeight];
 
@@ -72,6 +75,7 @@ namespace MethodLibrary
             var ii = 0;
             var jj = 0;
             var count = 0;
+            var count2 = 0;
 
             await Task.Factory.StartNew(() =>
             {
@@ -83,18 +87,32 @@ namespace MethodLibrary
                         {
                             for (int col = 0; col < bitmapHeight; col++)
                             {
-                                if (angle == 90 && col + step < bitmapWidth && arrForP[row, col] == item && arrForP[row, col + step] == item)
+
+                                for (int i = 0; i < step; i++)
                                 {
-                                    count++;
+                                    if (angle == 90 && col + step < bitmapWidth && arrForP[row, col] == item && arrForP[row, col + step] == item)
+                                    {
+                                        count2++;
+                                    }
+                                    else if (angle == 135 && col + i < bitmapHeight &&
+                                            row + i < bitmapWidth &&
+                                            arrForP[row, col] == item &&
+                                            arrForP[row + i, col + i] == item)
+                                    {
+                                        count2++;
+                                    }
                                 }
-                                else if (angle == 135 && col + step < bitmapHeight &&
-                                        row + step < bitmapWidth &&
-                                        arrForP[row, col] == item &&
-                                        arrForP[row + step, col + step] == item)
+
+
+                                if(count2 == step)
                                 {
                                     count++;
                                 }
 
+
+
+                                
+                                count2 = 0;
                             }
                         }
 
@@ -112,6 +130,7 @@ namespace MethodLibrary
 
             });
 
+            colors.Add(color);
             return newArr;
         }
 
@@ -123,20 +142,19 @@ namespace MethodLibrary
 
             for (int i = 0; i < listOfDifferentNumbers.Count; i++)
             {
-                for (int j = 0; j < 50; j++)
+                for (int j = 0; j < 45; j++)
                 {
                     K += int.Parse(dataGridView2[j, i].Value.ToString()!);
                 }
             }
 
-            //dataGridView3[0, 1].Value = K;
             int k = 0;
             var KPP = .0;
 
 
             foreach (var item in listOfDifferentNumbers)
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 45; i++)
                 {
                     KPP += int.Parse(dataGridView2[i, k].Value.ToString()!) / Math.Pow(i + 1, 2);
                 }
@@ -144,24 +162,22 @@ namespace MethodLibrary
             }
 
 
-            KPP = KPP / K;
+            KPP /= K;
             k = 0;
-            //dataGridView3[1, 1].Value = KPP;
 
 
             var DPP = .0;
 
             foreach (var item in listOfDifferentNumbers)
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 45; i++)
                 {
                     DPP += int.Parse(dataGridView2[i, k].Value.ToString()!) * Math.Pow(i + 1, 2);
                 }
                 k++;
             }
 
-            DPP = DPP / K;
-            //dataGridView3[2, 1].Value = DPP;
+            DPP /= K;
             k = 0;
 
             var EUS = .0;
@@ -169,7 +185,7 @@ namespace MethodLibrary
             foreach (var item in listOfDifferentNumbers)
             {
                 var temp = .0;
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 45; i++)
                 {
                     temp += int.Parse(dataGridView2[i, k].Value.ToString()!);
                 }
@@ -178,8 +194,7 @@ namespace MethodLibrary
                 k++;
             }
 
-            EUS = EUS / K;
-            //dataGridView3[3, 1].Value = EUS;
+            EUS /= K;
 
             return new []{ K, KPP, DPP, EUS };
         }

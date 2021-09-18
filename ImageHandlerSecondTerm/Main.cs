@@ -10,7 +10,7 @@ namespace ImageHandlerSecondTerm
     public partial class Main : Form
     {
         List<int>? listOfDifferentNumbers;
-        string[] valuesForSmallDataGrid = { "К", "КПП", "ДПП", "ЕУС", "R" };
+        string[] valuesForSmallDataGrid = { "К", "КПП", "ДПП", "ЕУС" };
         public Main()
         {
             InitializeComponent();
@@ -28,14 +28,13 @@ namespace ImageHandlerSecondTerm
             dataGridView3.EnableHeadersVisualStyles = false;
             for (int i = 1; i < 5; i++)
             {
-                dataGridView3[i - 1,0].Value = valuesForSmallDataGrid[i];
+                dataGridView3[i - 1,0].Value = valuesForSmallDataGrid[i - 1];
                 dataGridView3.Rows[i].HeaderCell.Value = i.ToString();
                 dataGridView3.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
                 dataGridView3.Columns[i - 1].Width = 70;
             }
 
             dataGridView3.ScrollBars = ScrollBars.None;
-               
         }
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
@@ -74,6 +73,7 @@ namespace ImageHandlerSecondTerm
 
             dataGridView1 = await WinFormsComponentHandler.AddColAndRow(bitmapWidth, bitmapHeight, dataGridView1);
             dataGridView1 = await WinFormsComponentHandler.AddDataToDataGridView(BitmapHandler.GetGreyscaleArray(bitmap), dataGridView1);
+
             listOfDifferentNumbers = await WinFormsComponentHandler.GetDiffItemsFromDataGrid(dataGridView1, bitmapWidth, bitmapHeight);
             var countOfDiffElements = listOfDifferentNumbers.Count;
 
@@ -114,6 +114,22 @@ namespace ImageHandlerSecondTerm
                 {
                     dataGridView3[i, 1].Value = result[i];
                 }
+
+                for (int i = 0; i < 49; i++)
+                {
+                    for (int j = 0; j < 49; j++)
+                    {
+                        var item = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                        var itemPlusStep = int.Parse(dataGridView1[j + 1, i + 1].Value.ToString()!);
+                        if (item == itemPlusStep)
+                        {
+                            var avg = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                            var color = Color.FromArgb(avg, avg, avg);
+                            dataGridView1[j, i].Style.BackColor = color;
+                            dataGridView1[j + 1, i + 1].Style.BackColor = color;
+                        }
+                    }
+                }
             }
         }
 
@@ -128,6 +144,22 @@ namespace ImageHandlerSecondTerm
                 {
                     dataGridView3[i, 2].Value = result[i];
                 }
+
+                for (int i = 0; i < 49; i++)
+                {
+                    for (int j = 0; j < 49; j++)
+                    {
+                        var item = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                        var itemPlusStep = int.Parse(dataGridView1[j + 1, i + 1].Value.ToString()!);
+                        if (item == itemPlusStep)
+                        {
+                            var avg = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                            var color = Color.FromArgb(avg, avg, avg);
+                            dataGridView1[j, i].Style.BackColor = color;
+                            dataGridView1[j + 1, i + 1].Style.BackColor = color;
+                        }
+                    }
+                }
             }
         }
 
@@ -141,6 +173,22 @@ namespace ImageHandlerSecondTerm
                 for (int i = 0; i < 4; i++)
                 {
                     dataGridView3[i, 3].Value = result[i];
+                }
+
+                for (int i = 0; i < 49; i++)
+                {
+                    for (int j = 0; j < 49; j++)
+                    {
+                        var item = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                        var itemPlusStep = int.Parse(dataGridView1[j + 1, i + 1].Value.ToString()!);
+                        if (item == itemPlusStep)
+                        {
+                            var avg = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                            var color = Color.FromArgb(avg, avg, avg);
+                            dataGridView1[j, i].Style.BackColor = color;
+                            dataGridView1[j + 1, i + 1].Style.BackColor = color;
+                        }
+                    }
                 }
             }
         }
@@ -157,7 +205,21 @@ namespace ImageHandlerSecondTerm
                     dataGridView3[i, 4].Value = result[i];
                 }
 
-
+                for (int i = 0; i < 49; i++)
+                {
+                    for (int j = 0; j < 49; j++)
+                    {
+                        var item = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                        var itemPlusStep = int.Parse(dataGridView1[j + 1, i + 1].Value.ToString()!);
+                        if (item == itemPlusStep)
+                        {
+                            var avg = int.Parse(dataGridView1[j, i].Value.ToString()!);
+                            var color = Color.FromArgb(avg, avg, avg);
+                            dataGridView1[j, i].Style.BackColor = color;
+                            dataGridView1[j + 1, i + 1].Style.BackColor = color;
+                        }
+                    }
+                }
             }
         }
 
@@ -193,18 +255,25 @@ namespace ImageHandlerSecondTerm
 
             if (firstImgIsNotnull && secondImgIsNotnull) 
             {
-                label2.Text = "1-2 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 2].Value.ToString())).ToString();
+                label2.Text = "1-2 = " + Math.Sqrt((Math.Pow((double.Parse(dataGridView3[1, 1].Value.ToString()) - double.Parse(dataGridView3[1, 2].Value.ToString())), 2) +
+                    Math.Pow((double.Parse(dataGridView3[2, 1].Value.ToString()) - double.Parse(dataGridView3[2, 2].Value.ToString())), 2) + 
+                    Math.Pow((double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 2].Value.ToString())), 2) )).ToString();
             }
 
             if (firstImgIsNotnull && thredImgIsNotnull)
             {
-                label3.Text = "1-3 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 3].Value.ToString())).ToString();
+                label3.Text = "1-3 = " + Math.Sqrt((Math.Pow((double.Parse(dataGridView3[1, 1].Value.ToString()) - double.Parse(dataGridView3[1, 3].Value.ToString())), 2) +
+                    Math.Pow((double.Parse(dataGridView3[2, 1].Value.ToString()) - double.Parse(dataGridView3[2, 3].Value.ToString())), 2) +
+                    Math.Pow((double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 3].Value.ToString())), 2))).ToString();
             }
             
             if(firstImgIsNotnull && fourghtImgIsNotnull)
             {
-                label4.Text = "1-2 = " + (double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 4].Value.ToString())).ToString();
+                label4.Text = "1-4 = " + Math.Sqrt((Math.Pow((double.Parse(dataGridView3[1, 1].Value.ToString()) - double.Parse(dataGridView3[1, 4].Value.ToString())), 2) +
+                    Math.Pow((double.Parse(dataGridView3[2, 1].Value.ToString()) - double.Parse(dataGridView3[2, 4].Value.ToString())), 2) +
+                    Math.Pow((double.Parse(dataGridView3[3, 1].Value.ToString()) - double.Parse(dataGridView3[3, 4].Value.ToString())), 2))).ToString();
             }
         }
+
     }
 }
