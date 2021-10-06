@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -7,6 +8,51 @@ namespace MethodLibrary
 {
     public class WinFormsComponentHandler
     {
+        public static async Task<DataGridView> ReDrowCells(DataGridView dataGridView)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                dataGridView.Invoke(new Action(() =>
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+                    {
+                        for (int j = 0; j < dataGridView.Columns.Count - 1; j++)
+                        {
+                            if(dataGridView[i,j].Value.ToString() == "1")
+                            {
+                                dataGridView[i, j].Style.BackColor = Color.Black;
+                            }
+                            else
+                            {
+                                dataGridView[i, j].Style.BackColor = Color.White;
+                            }
+                        }
+                    }
+
+
+                   
+                }));
+                return dataGridView;
+            });
+        }
+
+        public static int[,] GetArrayFromDataGridView(DataGridView dataGridView)
+        {
+            var rowsCount = dataGridView.Rows.Count;
+            var columnsCount = dataGridView.Columns.Count;
+            int [,] array = new int[rowsCount, columnsCount];
+            for (int i = 0; i < rowsCount; i++)
+            {
+                for (int j = 0; j < columnsCount; j++)
+                {
+                    array[i, j] = int.Parse(dataGridView[j, i].Value.ToString()!);
+                }
+            }
+
+            return array;
+        }
+
+
         public static string? IsOpenFileDialogOk(OpenFileDialog fileDialog)
         {
             fileDialog = new OpenFileDialog
@@ -25,8 +71,10 @@ namespace MethodLibrary
                 ReadOnlyChecked = true,
                 ShowReadOnly = true
             };
+            var result = fileDialog.ShowDialog() == DialogResult.OK ? fileDialog.FileName : null;
+            
 
-            return fileDialog.ShowDialog() == DialogResult.OK ? fileDialog.FileName : null;
+            return result;
         }
 
         public static async Task<DataGridView> AddColAndRow(int width, int height, DataGridView dataGrid)
@@ -90,6 +138,67 @@ namespace MethodLibrary
                 resultList.Sort();
 
                 return resultList;
+            });
+        }
+
+
+        public static async Task<DataGridView> DrowCells(Bitmap bitmap, DataGridView dataGrid, string type)
+        {
+
+            if (type == "binary")
+            {
+                return await Task.Factory.StartNew(() =>
+                {
+                    for (int i = 0; i < dataGrid.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dataGrid.Columns.Count; j++)
+                        {
+                            var color = bitmap.GetPixel(i, j).R + bitmap.GetPixel(i, j).G + bitmap.GetPixel(i, j).B;
+                            if (color == 765)
+                            {
+                                dataGrid[i, j].Style.BackColor = Color.White;
+                            }
+                            else
+                            {
+                                dataGrid[i, j].Style.BackColor = Color.Black;
+                            }
+
+                        }
+                    }
+
+                    return dataGrid;
+                });
+            }
+            else if (type == "greyscale")
+            {
+                return await Task.Factory.StartNew(() =>
+                {
+                    for (int i = 0; i < dataGrid.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dataGrid.Columns.Count; j++)
+                        {
+                            var avgColor = (bitmap.GetPixel(i, j).R + bitmap.GetPixel(i, j).G + bitmap.GetPixel(i, j).B) / 3;
+                            var color = Color.FromArgb(avgColor, avgColor, avgColor);
+                            dataGrid[i, j].Style.BackColor = color;
+                        }
+                    }
+
+                    return dataGrid;
+                });
+            }
+
+            return await Task.Factory.StartNew(() =>
+            {
+                for (int i = 0; i < dataGrid.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dataGrid.Columns.Count; j++)
+                    {
+                        var color = Color.FromArgb(bitmap.GetPixel(i, j).R, bitmap.GetPixel(i, j).G, bitmap.GetPixel(i, j).B);
+                        dataGrid[i, j].Style.BackColor = color;
+                    }
+                }
+
+                return dataGrid;
             });
         }
 

@@ -200,6 +200,30 @@ namespace MethodLibrary
         }
 
 
+        public static int[,] GetBinaryArrayFromBitmap(Bitmap bitmap)
+        {
+            int[,] arr = new int[bitmap.Height, bitmap.Width];
+
+
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                    var isWhite = bitmap.GetPixel(j, i).R == 255 && bitmap.GetPixel(j, i).G == 255 && bitmap.GetPixel(j, i).B == 255;
+                    if (isWhite)
+                    {
+                        arr[i, j] = 0;
+                    }
+                    else
+                    {
+                        arr[i, j] = 1;
+                    }
+                    
+                }
+            }
+
+            return arr;
+        }
        
     }
 }
