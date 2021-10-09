@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Emgu.CV" Version="4.5.3.4721" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.5.3.4721" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
   </ItemGroup>
 
   <ItemGroup>

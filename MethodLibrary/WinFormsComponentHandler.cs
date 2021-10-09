@@ -18,7 +18,7 @@ namespace MethodLibrary
                     {
                         for (int j = 0; j < dataGridView.Columns.Count - 1; j++)
                         {
-                            if(dataGridView[i,j].Value.ToString() == "1")
+                            if (dataGridView[i, j].Value.ToString() == "1")
                             {
                                 dataGridView[i, j].Style.BackColor = Color.Black;
                             }
@@ -30,26 +30,35 @@ namespace MethodLibrary
                     }
 
 
-                   
+
                 }));
                 return dataGridView;
             });
         }
 
-        public static int[,] GetArrayFromDataGridView(DataGridView dataGridView)
+        public static async Task<int[,]> GetArrayFromDataGridView(DataGridView dataGridView)
         {
-            var rowsCount = dataGridView.Rows.Count;
-            var columnsCount = dataGridView.Columns.Count;
-            int [,] array = new int[rowsCount, columnsCount];
-            for (int i = 0; i < rowsCount; i++)
+            
+            return await Task.Factory.StartNew(() =>
             {
-                for (int j = 0; j < columnsCount; j++)
+                var columnsCount = dataGridView.Columns.Count;
+                var rowsCount = dataGridView.Rows.Count;
+                int[,] array = new int[rowsCount, columnsCount];
+                dataGridView.Invoke(new Action(() =>
                 {
-                    array[i, j] = int.Parse(dataGridView[j, i].Value.ToString()!);
-                }
-            }
+                    for (int i = 0; i < rowsCount; i++)
+                    {
+                        for (int j = 0; j < columnsCount; j++)
+                        {
+                            array[i, j] = int.Parse(dataGridView[j, i].Value.ToString()!);
+                        }
+                    }
 
-            return array;
+                }));
+                return array;
+            });
+
+
         }
 
 
@@ -72,7 +81,7 @@ namespace MethodLibrary
                 ShowReadOnly = true
             };
             var result = fileDialog.ShowDialog() == DialogResult.OK ? fileDialog.FileName : null;
-            
+
 
             return result;
         }

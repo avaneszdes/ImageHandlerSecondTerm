@@ -6,9 +6,11 @@ using MethodLibrary;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
+using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ImageHandlerSecondTerm
 {
@@ -17,6 +19,7 @@ namespace ImageHandlerSecondTerm
         List<int>? listOfDifferentNumbers;
         string[] valuesForSmallDataGrid = { "К", "КПП", "ДПП", "ЕУС" };
         string fileName = string.Empty;
+        Chart chart1 = new();
         public Main()
         {
             InitializeComponent();
@@ -24,23 +27,43 @@ namespace ImageHandlerSecondTerm
             burgerPanel.Location = new Point(0, -400);
             panel1.Location = new Point(0, 0);
             panel1.Width = this.Width;
+
+            chart1.Location = new Point(735, 10);
+            chart1.Width = 710;
+            chart1.Height = 200;
+
+            this.tabPage2.Controls.Add(chart1); 
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            burgerPanel.Visible = false;
-            dataGridView3 = await WinFormsComponentHandler.AddColAndRow(4, 5, dataGridView3);
-            dataGridView3.RowHeadersWidth = 60;
-            dataGridView3.EnableHeadersVisualStyles = false;
-            for (int i = 1; i < 5; i++)
-            {
-                dataGridView3[i - 1, 0].Value = valuesForSmallDataGrid[i - 1];
-                dataGridView3.Rows[i].HeaderCell.Value = i.ToString();
-                dataGridView3.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
-                dataGridView3.Columns[i - 1].Width = 70;
-            }
+            //burgerPanel.Visible = false;
+            //dataGridView3 = await WinFormsComponentHandler.AddColAndRow(4, 5, dataGridView3);
+            //dataGridView3.RowHeadersWidth = 60;
+            //dataGridView3.EnableHeadersVisualStyles = false;
+            //for (int i = 1; i < 5; i++)
+            //{
+            //    dataGridView3[i - 1, 0].Value = valuesForSmallDataGrid[i - 1];
+            //    dataGridView3.Rows[i].HeaderCell.Value = i.ToString();
+            //    dataGridView3.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
+            //    dataGridView3.Columns[i - 1].Width = 70;
+            //}
 
-            dataGridView3.ScrollBars = ScrollBars.None;
+            //dataGridView3.ScrollBars = ScrollBars.None;
+
+
+            ChartArea chartarea1 = new ChartArea();
+            chart1.ChartAreas.Add(chartarea1);
+
+            chart1.Series.Clear();
+            chart1.Series.Add("Series1");
+            chart1.Series[0].ChartType = SeriesChartType.Point;
+            chart1.ChartAreas[0].BorderColor = Color.FromArgb(128, 180, 255);
+            chart1.ChartAreas[0].BackColor = Color.FromArgb(128, 180, 255);
+            chart1.ChartAreas[0].BackSecondaryColor = Color.FromArgb(128, 180, 255);
+            chart1.Series[0].ChartArea = chart1.ChartAreas[0].Name;
+            chart1.BackColor = Color.FromArgb(128, 180, 255);
+            chart1.Series[0].BorderColor = Color.FromArgb(128, 180, 255);
         }
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
@@ -307,26 +330,31 @@ namespace ImageHandlerSecondTerm
                 dataGridView4 = await WinFormsComponentHandler.AddDataToDataGridView(BitmapHandler.GetBinaryArrayFromBitmap(bitmap), dataGridView4);
                 dataGridView4 = await WinFormsComponentHandler.DrowCells(bitmap, dataGridView4, "binary");
 
-                var dataGrid4 = WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView4);
-                var dataGrid5 = WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView5);
+                var dataGrid4 = await WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView4);
+               
 
-                var zongaSunyaresult = Alghoritm.DoZonga(dataGrid4);
+                var zongaSunyaresult = await Alghoritm.DoZonga(dataGrid4);
 
                 dataGridView4 = await WinFormsComponentHandler.AddDataToDataGridView(zongaSunyaresult, dataGridView4);
+
+                var countOfBlackPixels = Alghoritm.GetCountOfBlackPixels(dataGrid4);
 
                 dataGridView4 = await WinFormsComponentHandler.ReDrowCells(dataGridView4);
 
                 //tesseract.Dispose();
 
-                var countOfBlackPixels = await Alghoritm.GetCountOfBlackPixels(dataGrid4);
-                dataGridView5 = await WinFormsComponentHandler.AddColAndRow(4, countOfBlackPixels, dataGridView5);
+                dataGridView5 = await WinFormsComponentHandler.AddColAndRow(4, await countOfBlackPixels, dataGridView5);
+               
 
                 dataGridView5.Columns[0].HeaderCell.Value = "A4";
                 dataGridView5.Columns[1].HeaderCell.Value = "A8";
                 dataGridView5.Columns[2].HeaderCell.Value = "B8";
                 dataGridView5.Columns[3].HeaderCell.Value = "CN";
 
+                
                 dataGridView5.EnableHeadersVisualStyles = false;
+                chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
                 var row = 0;
                 for (int i = 0; i < 50; i++)
@@ -348,45 +376,120 @@ namespace ImageHandlerSecondTerm
                     }
                 }
 
+                var dataGrid5 = await WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView5);
                 var fileName = isOpen.Split("\\");
-                var conDots = await Alghoritm.GetKonecDotsAsync(dataGrid4);
-                var cnDots = await Alghoritm.GetCountCnDotsAsync(dataGrid5);
+                var conDots =  Alghoritm.GetKonecDotsAsync(dataGrid4);
+                var cnDots =  Alghoritm.GetCountCnDotsAsync(dataGrid5);
 
                 var x1 = int.Parse(textBox2.Text);
                 var y1 = int.Parse(textBox3.Text);
 
+                var con = await conDots;
+                var cn = await cnDots;
+
+
+               
                 if (dataGridView6.Rows.Count == 0)
                 {
+                    var datapoint = new DataPoint();
+                    datapoint.Font = new Font("Arial", 33, FontStyle.Italic);
+                    datapoint.SetValueXY(x1, y1);
+                    datapoint.Color = Color.Red;
+                    datapoint.MarkerSize = 10;
+                    datapoint.MarkerColor = Color.Red;
+                    datapoint.BorderDashStyle = ChartDashStyle.Solid;
+                    chart1.Series[0].Points.AddXY(x1,y1);
+                    chart1.Series[0].Points[0] = datapoint;
+
+
                     dataGridView6 = await WinFormsComponentHandler.AddColAndRow(4, 2, dataGridView6);
+                    dataGridView6.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
                     dataGridView6.Columns[0].HeaderCell.Value = "File name";
                     dataGridView6.Columns[1].HeaderCell.Value = "Конечных";
                     dataGridView6.Columns[2].HeaderCell.Value = "Ветвления";
                     dataGridView6.Columns[3].HeaderCell.Value = "Результат";
 
-
+                    
                     dataGridView6[0, 0].Value = fileName[^1];
-                    dataGridView6[1, 0].Value = conDots;
-                    dataGridView6[2, 0].Value = cnDots;
-                    dataGridView6[3, 0].Value = Math.Sqrt(Math.Pow(x1 - conDots, 2) + Math.Pow(y1 - cnDots, 2));
+                    dataGridView6[1, 0].Value = con;
+                    dataGridView6[2, 0].Value = await cnDots;
+                    dataGridView6[3, 0].Value = Math.Round(Math.Sqrt(Math.Pow(x1 - con, 2) + Math.Pow(y1 - cn, 2)), 3);
+                    dataGridView6[0, 0].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[1, 0].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[2, 0].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[3, 0].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+
+                    chart1.Series[0].Points.AddXY(con, cn);
+
+                    chart1.Series.Add("Line");
+                    chart1.Series["Line"].Points.Add(new DataPoint(x1, y1));
+                    chart1.Series["Line"].Points.Add(new DataPoint(con, cn));
+                    chart1.Series["Line"].ChartType = SeriesChartType.Line;
+
+
+                    int idx = chart1.Series["Line"].Points.AddXY(con,cn);
+                    chart1.Series["Line"].Points[idx].Label = Math.Round(Math.Sqrt(Math.Pow(x1 - con, 2) + Math.Pow(y1 - cn, 2)), 3).ToString();
                 }
                 else
                 {
                     dataGridView6.Rows.Add(1);
                     var index = dataGridView6.Rows.Count - 2;
                     dataGridView6[0, index].Value = fileName[^1];
-                    dataGridView6[1, index].Value = conDots;
-                    dataGridView6[2, index].Value = cnDots;
-                    dataGridView6[3, index].Value = Math.Sqrt(Math.Pow(x1 - conDots, 2) + Math.Pow(y1 - cnDots, 2));
+                    dataGridView6[1, index].Value = con;
+                    dataGridView6[2, index].Value = cn;
+                    dataGridView6[3, index].Value = Math.Round(Math.Sqrt(Math.Pow(x1 - con, 2) + Math.Pow(y1 - cn, 2)), 3);
+                    dataGridView6[0, index].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[1, index].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[2, index].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridView6[3, index].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+                    chart1.Series[0].Points.AddXY(con, cn);
+
+
+                    chart1.Series.Add("Line" + index);
+                    chart1.Series["Line" + index].Points.Add(new DataPoint(x1, y1));
+                    chart1.Series["Line" + index].Points.Add(new DataPoint(con, cn));
+                    chart1.Series["Line" + index].ChartType = SeriesChartType.Line;
+
+                    int idx = chart1.Series["Line" + index].Points.AddXY(con, cn);
+                    chart1.Series["Line" + index].Points[idx].Label = Math.Round(Math.Sqrt(Math.Pow(x1 - con, 2) + Math.Pow(y1 - cn, 2)), 3).ToString();
+
+                    var x = chart1.Series["Line" + index].Points[chart1.Series[index].Points.Count - 1].XValue;
+                    var y = chart1.Series["Line" + index].Points[chart1.Series[index].Points.Count - 1].YValues;
+                    var x2 = chart1.Series["Line"].Points[0].XValue;
+                    var y2 = chart1.Series["Line"].Points[0].YValues;
+
+                    chart1.Series["Line" + index].Points[0].BorderColor = Color.Red;
+
+                    if (x == x2 && y[0] == y2[0])
+                    {
+                        chart1.Series[0].Points[chart1.Series[0].Points.Count - 1].Color = Color.Red;
+
+                        var datapoint = new DataPoint();
+                        datapoint.Font = new Font("Arial", 33, FontStyle.Italic);
+                        datapoint.SetValueXY(x1, y1);
+                        datapoint.Color = Color.Red;
+                        datapoint.MarkerSize = 10;
+                        datapoint.MarkerColor = Color.Red;
+                        datapoint.BorderDashStyle = ChartDashStyle.Solid;
+                        chart1.Series[0].Points[chart1.Series[0].Points.Count - 1] = datapoint;
+                    }
+                    else
+                    {
+                        chart1.Series[0].Points[chart1.Series[0].Points.Count - 1].Color = Color.Green;
+                    }
+
 
                 }
             }
         }
 
 
-        private void dataGridView4_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView4_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var dataGrid4 = WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView4);
+            var dataGrid4 = await WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView4);
             if (Alghoritm.GetCN(dataGrid4,e.RowIndex, e.ColumnIndex) >= 3)
             {
                 MessageBox.Show("Пиксель ветвления");
@@ -406,7 +509,9 @@ namespace ImageHandlerSecondTerm
 
         }
 
-        
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
 

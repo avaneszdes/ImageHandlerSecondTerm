@@ -6,7 +6,7 @@ namespace MethodLibrary
 {
     public class Alghoritm
     {
-        public static async Task<int> GetCountOfBlackPixels(int [,] dataGrid)
+        public static async Task<int> GetCountOfBlackPixels(int[,] dataGrid)
         {
             int countOfBlackPx = 0;
 
@@ -77,7 +77,7 @@ namespace MethodLibrary
             return a1a2 + a2a3 + a3a4 + a4a5 + a5a6 + a6a7 + a7a8 + a8a1;
         }
 
-        public static int GetCN(int [,] dataGrid ,int i, int j)
+        public static int GetCN(int[,] dataGrid, int i, int j)
         {
             int P1 = 0;
 
@@ -159,44 +159,45 @@ namespace MethodLibrary
             return cnDotsCount;
         }
 
-        public static int[,] DoZonga(int[,] dataGrid)
+        public static async Task<int[,]> DoZonga(int[,] dataGrid)
         {
             int[,] arr = new int[50, 50];
             int[,] arr2 = new int[50, 50];
             int stepsOfAction = 1;
 
-            for (int i = 0; i < 50; i++)
+            return await Task.Factory.StartNew(() =>
             {
-                for (int j = 0; j < 50; j++)
+                for (int i = 0; i < 50; i++)
                 {
-                    if (dataGrid[j, i] == 1)
+                    for (int j = 0; j < 50; j++)
                     {
-                        arr[i, j] = 1;
-                    }
-                    else
-                    {
-                        arr[i, j] = 0;
+                        if (dataGrid[j, i] == 1)
+                        {
+                            arr[i, j] = 1;
+                        }
+                        else
+                        {
+                            arr[i, j] = 0;
+                        }
                     }
                 }
-            }
 
-            var counter = -1;
-            while (true)
-            {
-
-                stepsOfAction = 0;
-
-
-
-                for (int i = 1; i < 49; i++)
+                var counter = -1;
+                while (true)
                 {
-                    for (int j = 1; j < 49; j++)
-                    {
 
-                        if (arr[i, j] == 1)
+                    stepsOfAction = 0;
+
+
+                    Parallel.For(0, 49, i =>
+                    {
+                        for (int j = 1; j < 49; j++)
                         {
-                            var listOfBlackPixels = new List<int>
-                                {
+
+                            if (arr[i, j] == 1)
+                            {
+                                var listOfBlackPixels = new List<int>
+                                    {
                                    arr[i - 1, j - 1],
                                    arr[i - 1, j],
                                    arr[i - 1, j + 1],
@@ -205,107 +206,108 @@ namespace MethodLibrary
                                    arr[i + 1, j - 1],
                                    arr[i + 1, j + 1],
                                    arr[i + 1, j]
-                                };
+                                    };
 
 
-                            var countOfBlackPixels = listOfBlackPixels.Where(x => x == 1).Count();
+                                var countOfBlackPixels = listOfBlackPixels.Where(x => x == 1).Count();
 
-                            int P1 = 0;
+                                int P1 = 0;
 
-                            if (arr[i - 1, j] == 0 && arr[i - 1, j + 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i - 1, j + 1] == 0 && arr[i, j + 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i, j + 1] == 0 && arr[i + 1, j + 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i + 1, j + 1] == 0 && arr[i + 1, j] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i + 1, j] == 0 && arr[i + 1, j - 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i + 1, j - 1] == 0 && arr[i, j - 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i, j - 1] == 0 && arr[i - 1, j - 1] == 1)
-                            {
-                                P1++;
-                            }
-                            if (arr[i - 1, j - 1] == 0 && arr[i - 1, j] == 1)
-                            {
-                                P1++;
-                            }
+                                if (arr[i - 1, j] == 0 && arr[i - 1, j + 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i - 1, j + 1] == 0 && arr[i, j + 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i, j + 1] == 0 && arr[i + 1, j + 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i + 1, j + 1] == 0 && arr[i + 1, j] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i + 1, j] == 0 && arr[i + 1, j - 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i + 1, j - 1] == 0 && arr[i, j - 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i, j - 1] == 0 && arr[i - 1, j - 1] == 1)
+                                {
+                                    P1++;
+                                }
+                                if (arr[i - 1, j - 1] == 0 && arr[i - 1, j] == 1)
+                                {
+                                    P1++;
+                                }
 
-                            bool three = false;
-                            bool four = false;
+                                bool three = false;
+                                bool four = false;
 
-                            if (counter % 2 != 0)
-                            {
-                                three = (arr[i - 1, j] * arr[i, j + 1] * arr[i + 1, j]) == 0;
-                                four = (arr[i, j + 1] * arr[i + 1, j] * arr[i, j - 1]) == 0;
-                            }
-                            else
-                            {
-                                three = (arr[i - 1, j] * arr[i + 1, j] * arr[i, j - 1]) == 0;
-                                four = (arr[i - 1, j] * arr[i, j + 1] * arr[i, j - 1]) == 0;
-                            }
+                                if (counter % 2 != 0)
+                                {
+                                    three = (arr[i - 1, j] * arr[i, j + 1] * arr[i + 1, j]) == 0;
+                                    four = (arr[i, j + 1] * arr[i + 1, j] * arr[i, j - 1]) == 0;
+                                }
+                                else
+                                {
+                                    three = (arr[i - 1, j] * arr[i + 1, j] * arr[i, j - 1]) == 0;
+                                    four = (arr[i - 1, j] * arr[i, j + 1] * arr[i, j - 1]) == 0;
+                                }
 
 
-                            if (countOfBlackPixels >= 2 && countOfBlackPixels <= 6 && P1 == 1 && three && four)
-                            {
-                                arr2[i, j] = 0;
-                                stepsOfAction++;
-                            }
-                            else
-                            {
-                                arr2[i, j] = 1;
-                            }
+                                if (countOfBlackPixels >= 2 && countOfBlackPixels <= 6 && P1 == 1 && three && four)
+                                {
+                                    arr2[i, j] = 0;
+                                    stepsOfAction++;
+                                }
+                                else
+                                {
+                                    arr2[i, j] = 1;
+                                }
 
+                            }
                         }
-                    }
-                }
+                    });
 
-                if (stepsOfAction == 0)
-                {
-
-                    for (int i = 0; i < 50; i++)
+                    if (stepsOfAction == 0)
                     {
-                        for (int j = 0; j < 50; j++)
+
+                        for (int i = 0; i < 50; i++)
                         {
-                            dataGrid[j, i] = 0;
+                            for (int j = 0; j < 50; j++)
+                            {
+                                dataGrid[j, i] = 0;
 
+                            }
                         }
-                    }
 
-                    for (int i = 0; i < 50; i++)
+                        for (int i = 0; i < 50; i++)
+                        {
+                            for (int j = 0; j < 50; j++)
+                            {
+                                dataGrid[j, i] = arr2[i, j];
+                            }
+                        }
+                        break;
+                    }
+                    else
                     {
-                        for (int j = 0; j < 50; j++)
-                        {
-                            dataGrid[j, i] = arr2[i, j];
-                        }
+                        counter++;
+                        arr = arr2;
+                        arr2 = new int[50, 50];
                     }
-                    break;
-                }
-                else
-                {
-                    counter++;
-                    arr = arr2;
-                    arr2 = new int[50, 50];
+
                 }
 
-            }
-
-
-            return dataGrid;
+                return dataGrid;
+            })  ;
+           
         }
     }
 }
