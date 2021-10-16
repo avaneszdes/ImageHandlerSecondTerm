@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MethodLibrary
 {
-    public class WinFormsComponentHandler
+    public static class WinFormsComponentHandler
     {
         public static async Task<DataGridView> ReDrowCells(DataGridView dataGridView)
         {
@@ -16,7 +16,7 @@ namespace MethodLibrary
                 {
                     for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
                     {
-                        for (int j = 0; j < dataGridView.Columns.Count - 1; j++)
+                        for (int j = 0; j < dataGridView.Columns.Count; j++)
                         {
                             if (dataGridView[i, j].Value.ToString() == "1")
                             {
@@ -38,11 +38,11 @@ namespace MethodLibrary
 
         public static async Task<int[,]> GetArrayFromDataGridView(DataGridView dataGridView)
         {
-            
+
             return await Task.Factory.StartNew(() =>
             {
                 var columnsCount = dataGridView.Columns.Count;
-                var rowsCount = dataGridView.Rows.Count;
+                var rowsCount = dataGridView.Rows.Count - 1;
                 int[,] array = new int[rowsCount, columnsCount];
                 dataGridView.Invoke(new Action(() =>
                 {
@@ -86,44 +86,18 @@ namespace MethodLibrary
             return result;
         }
 
-        public static async Task<DataGridView> AddColAndRow(int width, int height, DataGridView dataGrid)
+        public static async Task AddDataToDataGridView(this DataGridView dataGrid, int[,] data)
         {
-            return await Task.Factory.StartNew(() =>
-             {
-                 dataGrid.Invoke(new Action(() =>
-                 {
-                     for (int i = 0; i < width; i++)
-                     {
-                         dataGrid.Columns.Add(i + 1 + "", i + 1 + "");
-                     }
-
-                     dataGrid.Rows.Add(height - 1);
-
-                     for (int i = 0; i < width; i++)
-                     {
-                         dataGrid.Columns[i].Width = 40;
-                     }
-                 }));
-                 return dataGrid;
-             });
-
-        }
-
-
-        public static async Task<DataGridView> AddDataToDataGridView(int[,] data, DataGridView dataGrid)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                for (int i = 0; i < dataGrid.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dataGrid.Columns.Count; j++)
-                    {
-                        dataGrid[j, i].Value = data[i, j];
-                    }
-                }
-
-                return dataGrid;
-            });
+            await Task.Factory.StartNew(() =>
+           {
+               for (int i = 0; i < data.GetLength(0); i++)
+               {
+                   for (int j = 0; j < data.GetLength(1); j++)
+                   {
+                       dataGrid[j, i].Value = data[i, j];
+                   }
+               }
+           });
         }
 
         public static async Task<List<int>> GetDiffItemsFromDataGrid(DataGridView dataGrid, int width, int height)
@@ -151,14 +125,13 @@ namespace MethodLibrary
         }
 
 
-        public static async Task<DataGridView> DrowCells(Bitmap bitmap, DataGridView dataGrid, string type)
+        public static async Task DrowCellsFromBinaryBitmap(this DataGridView dataGrid, Bitmap bitmap, string type)
         {
-
-            if (type == "binary")
+            await Task.Factory.StartNew(() =>
             {
-                return await Task.Factory.StartNew(() =>
+                if (type == "binary")
                 {
-                    for (int i = 0; i < dataGrid.Rows.Count; i++)
+                    for (int i = 0; i < dataGrid.Rows.Count - 1; i++)
                     {
                         for (int j = 0; j < dataGrid.Columns.Count; j++)
                         {
@@ -175,14 +148,10 @@ namespace MethodLibrary
                         }
                     }
 
-                    return dataGrid;
-                });
-            }
-            else if (type == "greyscale")
-            {
-                return await Task.Factory.StartNew(() =>
+                }
+                else if (type == "greyscale")
                 {
-                    for (int i = 0; i < dataGrid.Rows.Count; i++)
+                    for (int i = 0; i < dataGrid.Rows.Count - 1; i++)
                     {
                         for (int j = 0; j < dataGrid.Columns.Count; j++)
                         {
@@ -192,13 +161,9 @@ namespace MethodLibrary
                         }
                     }
 
-                    return dataGrid;
-                });
-            }
+                }
 
-            return await Task.Factory.StartNew(() =>
-            {
-                for (int i = 0; i < dataGrid.Rows.Count; i++)
+                for (int i = 0; i < dataGrid.Rows.Count - 1; i++)
                 {
                     for (int j = 0; j < dataGrid.Columns.Count; j++)
                     {
@@ -206,9 +171,9 @@ namespace MethodLibrary
                         dataGrid[i, j].Style.BackColor = color;
                     }
                 }
-
-                return dataGrid;
             });
+
+
         }
 
     }

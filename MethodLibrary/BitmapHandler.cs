@@ -9,6 +9,36 @@ namespace MethodLibrary
     public class BitmapHandler
     {
 
+        public static Bitmap GetBinaryBitmapFromArray(int[,] dataGrid)
+        {
+            var bitmap = new Bitmap(dataGrid.GetLength(0), dataGrid.GetLength(1));
+
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                    if (Alghoritm.IsPointCN(dataGrid, i, j) >= 3)
+                    {
+                        bitmap.SetPixel(j, i, Color.Red);
+                    }
+                    else if (Alghoritm.GetA8(dataGrid, i, j) == 1 && dataGrid[i,j] != 0)
+                    {
+                        bitmap.SetPixel(j, i, Color.Green);
+                    }
+                    else if (dataGrid[i, j] == 1)
+                    {
+                        bitmap.SetPixel(j, i, Color.Black);
+                    }
+                    else
+                    {
+                        bitmap.SetPixel(j, i, Color.White);
+                    }
+                }
+            }
+
+            return bitmap;
+        }
+
         public static List<bool[,]> colors = new List<bool[,]>();
         public static Bitmap GetGreyscaleBitmap(Bitmap bitmap)
         {

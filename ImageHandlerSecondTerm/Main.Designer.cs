@@ -30,6 +30,9 @@ namespace ImageHandlerSecondTerm
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -44,16 +47,29 @@ namespace ImageHandlerSecondTerm
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.dataGridView8 = new System.Windows.Forms.DataGridView();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
@@ -70,7 +86,14 @@ namespace ImageHandlerSecondTerm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
@@ -87,12 +110,12 @@ namespace ImageHandlerSecondTerm
             // dataGridView1
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(253)))), ((int)(((byte)(239)))));
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(206, 46);
+            this.dataGridView1.Location = new System.Drawing.Point(217, 41);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(475, 274);
+            this.dataGridView1.Size = new System.Drawing.Size(665, 520);
             this.dataGridView1.TabIndex = 1;
             // 
             // pictureBox1
@@ -129,12 +152,12 @@ namespace ImageHandlerSecondTerm
             // dataGridView2
             // 
             this.dataGridView2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(253)))), ((int)(((byte)(239)))));
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(206, 345);
+            this.dataGridView2.Location = new System.Drawing.Point(217, 567);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 25;
-            this.dataGridView2.Size = new System.Drawing.Size(475, 274);
+            this.dataGridView2.Size = new System.Drawing.Size(1048, 274);
             this.dataGridView2.TabIndex = 5;
             // 
             // panel1
@@ -145,7 +168,7 @@ namespace ImageHandlerSecondTerm
             this.panel1.Controls.Add(this.menu);
             this.panel1.Location = new System.Drawing.Point(199, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1307, 35);
+            this.panel1.Size = new System.Drawing.Size(1343, 35);
             this.panel1.TabIndex = 6;
             // 
             // menu
@@ -178,7 +201,7 @@ namespace ImageHandlerSecondTerm
             this.burgerPanel.Controls.Add(this.pictureBox2);
             this.burgerPanel.Location = new System.Drawing.Point(0, 0);
             this.burgerPanel.Name = "burgerPanel";
-            this.burgerPanel.Size = new System.Drawing.Size(200, 814);
+            this.burgerPanel.Size = new System.Drawing.Size(200, 876);
             this.burgerPanel.TabIndex = 10;
             // 
             // button1
@@ -234,42 +257,237 @@ namespace ImageHandlerSecondTerm
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1506, 815);
+            this.tabControl1.Size = new System.Drawing.Size(1542, 877);
             this.tabControl1.TabIndex = 15;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.dataGridView7);
+            this.tabPage3.Controls.Add(this.panel3);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.pictureBox7);
+            this.tabPage3.Controls.Add(this.dataGridView8);
+            this.tabPage3.Controls.Add(this.pictureBox6);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1534, 849);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Lab 3";
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // dataGridView7
+            // 
+            this.dataGridView7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
+            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView7.Location = new System.Drawing.Point(718, 191);
+            this.dataGridView7.Name = "dataGridView7";
+            this.dataGridView7.RowTemplate.Height = 25;
+            this.dataGridView7.Size = new System.Drawing.Size(286, 617);
+            this.dataGridView7.TabIndex = 16;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.radioButton2);
+            this.panel3.Controls.Add(this.textBox5);
+            this.panel3.Controls.Add(this.textBox4);
+            this.panel3.Controls.Add(this.radioButton1);
+            this.panel3.Location = new System.Drawing.Point(804, 6);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.TabIndex = 15;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(13, 37);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(79, 19);
+            this.radioButton2.TabIndex = 15;
+            this.radioButton2.Text = "Gorizontal";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(67, 62);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(31, 23);
+            this.textBox5.TabIndex = 13;
+            this.textBox5.Text = "0";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(31, 62);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(30, 23);
+            this.textBox4.TabIndex = 12;
+            this.textBox4.Text = "0";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(13, 12);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(72, 19);
+            this.radioButton1.TabIndex = 14;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Diagonal";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(730, 253);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 15);
+            this.label9.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(730, 227);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 15);
+            this.label8.TabIndex = 10;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox7.Location = new System.Drawing.Point(233, 6);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(175, 166);
+            this.pictureBox7.TabIndex = 9;
+            this.pictureBox7.TabStop = false;
+            // 
+            // dataGridView8
+            // 
+            this.dataGridView8.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView8.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView8.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView8.Location = new System.Drawing.Point(8, 191);
+            this.dataGridView8.Name = "dataGridView8";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView8.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView8.RowTemplate.Height = 25;
+            this.dataGridView8.Size = new System.Drawing.Size(663, 611);
+            this.dataGridView8.TabIndex = 7;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox6.BackgroundImage")));
+            this.pictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox6.Location = new System.Drawing.Point(8, 6);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(177, 166);
+            this.pictureBox6.TabIndex = 4;
+            this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(180)))), ((int)(((byte)(255)))));
+            this.tabPage2.Controls.Add(this.pictureBox8);
             this.tabPage2.Controls.Add(this.panel2);
             this.tabPage2.Controls.Add(this.dataGridView6);
             this.tabPage2.Controls.Add(this.dataGridView5);
             this.tabPage2.Controls.Add(this.dataGridView4);
-            this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.pictureBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1498, 787);
+            this.tabPage2.Size = new System.Drawing.Size(1534, 849);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Lab 2-3";
+            this.tabPage2.Text = "Lab 2-4";
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.BackgroundImage = global::ImageHandlerSecondTerm.Properties.Resources.open64;
+            this.pictureBox8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox8.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox8.InitialImage")));
+            this.pictureBox8.Location = new System.Drawing.Point(229, 6);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(192, 198);
+            this.pictureBox8.TabIndex = 12;
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
             // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.textBox2);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Location = new System.Drawing.Point(240, 6);
+            this.panel2.Location = new System.Drawing.Point(444, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 100);
+            this.panel2.Size = new System.Drawing.Size(200, 198);
             this.panel2.TabIndex = 12;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(21, 147);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(156, 35);
+            this.button3.TabIndex = 14;
+            this.button3.Text = "Find the most similar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(155, 53);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(22, 25);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(155, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(22, 25);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "0";
             // 
             // label7
             // 
@@ -281,16 +499,6 @@ namespace ImageHandlerSecondTerm
             this.label7.TabIndex = 11;
             this.label7.Text = "Точки ветвления";
             // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(155, 14);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(29, 29);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "1";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -301,55 +509,36 @@ namespace ImageHandlerSecondTerm
             this.label6.TabIndex = 10;
             this.label6.Text = "Конечные точки";
             // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(155, 53);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(29, 29);
-            this.textBox3.TabIndex = 9;
-            this.textBox3.Text = "1";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // dataGridView6
             // 
             this.dataGridView6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Location = new System.Drawing.Point(1042, 245);
+            this.dataGridView6.Location = new System.Drawing.Point(963, 224);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.RowTemplate.Height = 25;
-            this.dataGridView6.Size = new System.Drawing.Size(403, 525);
+            this.dataGridView6.Size = new System.Drawing.Size(386, 617);
             this.dataGridView6.TabIndex = 7;
             // 
             // dataGridView5
             // 
             this.dataGridView5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(735, 245);
+            this.dataGridView5.Location = new System.Drawing.Point(699, 224);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowTemplate.Height = 25;
-            this.dataGridView5.Size = new System.Drawing.Size(267, 525);
+            this.dataGridView5.Size = new System.Drawing.Size(228, 617);
             this.dataGridView5.TabIndex = 6;
             // 
             // dataGridView4
             // 
             this.dataGridView4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(8, 245);
+            this.dataGridView4.Location = new System.Drawing.Point(8, 224);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowTemplate.Height = 25;
-            this.dataGridView4.Size = new System.Drawing.Size(693, 525);
+            this.dataGridView4.Size = new System.Drawing.Size(658, 617);
             this.dataGridView4.TabIndex = 5;
             this.dataGridView4.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellDoubleClick);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(234, 41);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 86);
-            this.label5.TabIndex = 4;
             // 
             // pictureBox5
             // 
@@ -378,13 +567,13 @@ namespace ImageHandlerSecondTerm
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1498, 787);
+            this.tabPage1.Size = new System.Drawing.Size(1534, 849);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Lab 1";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(698, 208);
+            this.button2.Location = new System.Drawing.Point(941, 195);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 14;
@@ -395,7 +584,7 @@ namespace ImageHandlerSecondTerm
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(698, 245);
+            this.label2.Location = new System.Drawing.Point(941, 232);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 15);
             this.label2.TabIndex = 11;
@@ -406,7 +595,7 @@ namespace ImageHandlerSecondTerm
             this.dataGridView3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(253)))), ((int)(((byte)(239)))));
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(698, 46);
+            this.dataGridView3.Location = new System.Drawing.Point(941, 38);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 25;
             this.dataGridView3.Size = new System.Drawing.Size(340, 146);
@@ -415,7 +604,7 @@ namespace ImageHandlerSecondTerm
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(698, 295);
+            this.label4.Location = new System.Drawing.Point(941, 282);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 15);
             this.label4.TabIndex = 13;
@@ -424,7 +613,7 @@ namespace ImageHandlerSecondTerm
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(698, 268);
+            this.label3.Location = new System.Drawing.Point(941, 255);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 15);
             this.label3.TabIndex = 12;
@@ -434,7 +623,7 @@ namespace ImageHandlerSecondTerm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(253)))), ((int)(((byte)(239)))));
-            this.ClientSize = new System.Drawing.Size(1539, 806);
+            this.ClientSize = new System.Drawing.Size(1540, 877);
             this.Controls.Add(this.tabControl1);
             this.Name = "Main";
             this.Text = "Main";
@@ -451,8 +640,16 @@ namespace ImageHandlerSecondTerm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
@@ -489,15 +686,28 @@ namespace ImageHandlerSecondTerm
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.DataGridView dataGridView5;
         private System.Windows.Forms.DataGridView dataGridView6;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dataGridView8;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dataGridView7;
     }
 }
 

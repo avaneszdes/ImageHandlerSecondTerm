@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MethodLibrary
 {
-    public class Alghoritm
+    public static class Alghoritm
     {
         public static async Task<int> GetCountOfBlackPixels(int[,] dataGrid)
         {
@@ -40,16 +42,22 @@ namespace MethodLibrary
 
         public static int GetA8(int[,] dataGrid, int j, int i)
         {
-            var left = dataGrid[j, i - 1];
-            var right = dataGrid[j, i + 1];
-            var top = dataGrid[j - 1, i];
-            var bootom = dataGrid[j + 1, i];
-            var topleft = dataGrid[j - 1, i - 1];
-            var topright = dataGrid[j - 1, i + 1];
-            var leftbottom = dataGrid[j + 1, i - 1];
-            var rightbootom = dataGrid[j + 1, i + 1];
+            if (i > 0 && j > 0 && i < 49 && j < 49)
+            {
+                var left = dataGrid[j, i - 1];
+                var right = dataGrid[j, i + 1];
+                var top = dataGrid[j - 1, i];
+                var bootom = dataGrid[j + 1, i];
+                var topleft = dataGrid[j - 1, i - 1];
+                var topright = dataGrid[j - 1, i + 1];
+                var leftbottom = dataGrid[j + 1, i - 1];
+                var rightbootom = dataGrid[j + 1, i + 1];
 
-            return left + right + top + bootom + topleft + topright + leftbottom + rightbootom;
+                return left + right + top + bootom + topleft + topright + leftbottom + rightbootom;
+            }
+
+            return 0;
+           
         }
 
         public static int GetB8(int[,] dataGrid, int j, int i)
@@ -77,46 +85,50 @@ namespace MethodLibrary
             return a1a2 + a2a3 + a3a4 + a4a5 + a5a6 + a6a7 + a7a8 + a8a1;
         }
 
-        public static int GetCN(int[,] dataGrid, int i, int j)
+        public static int IsPointCN(int[,] dataGrid, int i, int j)
         {
             int P1 = 0;
-
-            if (dataGrid[i - 1, j] == 0 && dataGrid[i - 1, j + 1] == 1)
+            if(i > 0 && j > 0 && i < 49 && j < 49)
             {
-                P1++;
+                if (dataGrid[i - 1, j] == 0 && dataGrid[i - 1, j + 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i - 1, j + 1] == 0 && dataGrid[i, j + 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i, j + 1] == 0 && dataGrid[i + 1, j + 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i + 1, j + 1] == 0 && dataGrid[i + 1, j] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i + 1, j] == 0 && dataGrid[i + 1, j - 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i + 1, j - 1] == 0 && dataGrid[i, j - 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i, j - 1] == 0 && dataGrid[i - 1, j - 1] == 1)
+                {
+                    P1++;
+                }
+                if (dataGrid[i - 1, j - 1] == 0 && dataGrid[i - 1, j] == 1)
+                {
+                    P1++;
+                }
             }
-            if (dataGrid[i - 1, j + 1] == 0 && dataGrid[i, j + 1] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i, j + 1] == 0 && dataGrid[i + 1, j + 1] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i + 1, j + 1] == 0 && dataGrid[i + 1, j] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i + 1, j] == 0 && dataGrid[i + 1, j - 1] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i + 1, j - 1] == 0 && dataGrid[i, j - 1] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i, j - 1] == 0 && dataGrid[i - 1, j - 1] == 1)
-            {
-                P1++;
-            }
-            if (dataGrid[i - 1, j - 1] == 0 && dataGrid[i - 1, j] == 1)
-            {
-                P1++;
-            }
+           
 
 
             return P1;
         }
+
 
         public static async Task<int> GetKonecDotsAsync(int[,] dataGrid)
         {
@@ -158,6 +170,8 @@ namespace MethodLibrary
 
             return cnDotsCount;
         }
+
+            
 
         public static async Task<int[,]> DoZonga(int[,] dataGrid)
         {
@@ -306,8 +320,8 @@ namespace MethodLibrary
                 }
 
                 return dataGrid;
-            })  ;
-           
+            });
+
         }
     }
 }
