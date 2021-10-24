@@ -286,12 +286,14 @@ namespace ImageHandlerSecondTerm
             // 
             // dataGridView7
             // 
-            this.dataGridView7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
+            this.dataGridView7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.dataGridView7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView7.Location = new System.Drawing.Point(718, 191);
             this.dataGridView7.Name = "dataGridView7";
             this.dataGridView7.RowTemplate.Height = 25;
-            this.dataGridView7.Size = new System.Drawing.Size(286, 617);
+            this.dataGridView7.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView7.Size = new System.Drawing.Size(335, 617);
             this.dataGridView7.TabIndex = 16;
             // 
             // panel3

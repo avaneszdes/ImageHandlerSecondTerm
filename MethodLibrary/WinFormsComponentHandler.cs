@@ -43,14 +43,14 @@ namespace MethodLibrary
             {
                 var columnsCount = dataGridView.Columns.Count;
                 var rowsCount = dataGridView.Rows.Count - 1;
-                int[,] array = new int[rowsCount, columnsCount];
+                int[,] array = new int[rowsCount + 1, columnsCount + 1];
                 dataGridView.Invoke(new Action(() =>
                 {
-                    for (int i = 0; i < rowsCount; i++)
+                    for (int i = 1; i < rowsCount + 1; i++)
                     {
-                        for (int j = 0; j < columnsCount; j++)
+                        for (int j = 1; j < columnsCount + 1; j++)
                         {
-                            array[i, j] = int.Parse(dataGridView[j, i].Value.ToString()!);
+                            array[i, j] = int.Parse(dataGridView[j - 1, i - 1].Value.ToString()!);
                         }
                     }
 

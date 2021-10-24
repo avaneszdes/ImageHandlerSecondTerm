@@ -72,11 +72,12 @@ namespace ImageHandlerSecondTerm
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-            await dataGridView7.AddColAndRow(3, 1);
+            await dataGridView7.AddColAndRow(4, 1);
             dataGridView7.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView7.Columns[0].HeaderCell.Value = "File name";
             dataGridView7.Columns[1].HeaderCell.Value = "Left Zonf";
             dataGridView7.Columns[2].HeaderCell.Value = "Right Zond";
+            dataGridView7.Columns[3].HeaderCell.Value = "Letter";
 
 
             await dataGridView6.AddColAndRow(4, 1);
@@ -126,7 +127,6 @@ namespace ImageHandlerSecondTerm
             var countOfDiffElements = listOfDifferentNumbers.Count;
 
             await dataGridView2.AddColAndRow(bitmapWidth, countOfDiffElements);
-            //dataGridView2 = await WinFormsComponentHandler.AddColAndRow2(bitmapWidth - 4 , countOfDiffElements, dataGridView2, 4);
             dataGridView2.EnableHeadersVisualStyles = false;
             dataGridView2.RowHeadersWidth = 70;
 
@@ -521,9 +521,16 @@ namespace ImageHandlerSecondTerm
 
                 dataGridView8.RedrowDiagonallZond();
 
-                dataGridView7[1, dataGridView7.Rows.Count - 2].Value = GetCountOfIntersectionByDiagonal("left", dataGridView8);
-                dataGridView7[2, dataGridView7.Rows.Count - 2].Value = GetCountOfIntersectionByDiagonal("right", dataGridView8);
+                var leftDiagonalRedPixCount = GetCountOfIntersectionByDiagonal("left", dataGridView8);
+                var rightDiagonalRedPixCount = GetCountOfIntersectionByDiagonal("right", dataGridView8);
                 dataGridView7[0, dataGridView7.Rows.Count - 2].Value = fileName[^1];
+                dataGridView7[1, dataGridView7.Rows.Count - 2].Value = leftDiagonalRedPixCount;
+                dataGridView7[2, dataGridView7.Rows.Count - 2].Value = rightDiagonalRedPixCount;
+
+                var letter = leftDiagonalRedPixCount == 2 && rightDiagonalRedPixCount == 2 ? "В" : 
+                    leftDiagonalRedPixCount == 3 && rightDiagonalRedPixCount == 2 ? "Б" : 
+                    leftDiagonalRedPixCount == 2 && rightDiagonalRedPixCount == 4 ? "З" : "?";
+                dataGridView7[3, dataGridView7.Rows.Count - 2].Value = letter;
 
                 dataGridView7.Rows.Add(1);
 
@@ -602,32 +609,10 @@ namespace ImageHandlerSecondTerm
             return count;
         }
 
-        public Bitmap ChangeBitmapSize(Bitmap bitmap, int firstRow, int lastRow, int fisrtCol, int lastCol)
-        {
-
-            var rows = lastRow - firstRow;
-            var columns = lastCol - fisrtCol;
-            var bitmapRes = new Bitmap(50, 50);
-            var ii = 0;
-            var jj = 0;
-            for (int i = firstRow; i < lastRow + 1; i++)
-            {
-                for (int j = fisrtCol; j < lastCol + 1; j++)
-                {
-                    bitmapRes.SetPixel(j - fisrtCol, i - firstRow, bitmap.GetPixel(j, i));
-                    jj++;
-                }
-                ii++;
-            }
-
-            return new Bitmap(bitmapRes, 30, 30);
-        }
-
         private void tabPage3_Click(object sender, EventArgs e)
         {
 
         }
-
 
         public Bitmap GetBitmapWithGorizontallZond(int[,] zongaResult, int firstZondRow, int secondZondRow)
         {

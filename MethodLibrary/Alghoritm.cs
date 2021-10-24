@@ -57,7 +57,7 @@ namespace MethodLibrary
             }
 
             return 0;
-           
+
         }
 
         public static int GetB8(int[,] dataGrid, int j, int i)
@@ -88,7 +88,7 @@ namespace MethodLibrary
         public static int IsPointCN(int[,] dataGrid, int i, int j)
         {
             int P1 = 0;
-            if(i > 0 && j > 0 && i < 49 && j < 49)
+            if (i > 0 && j > 0 && i < 49 && j < 49)
             {
                 if (dataGrid[i - 1, j] == 0 && dataGrid[i - 1, j + 1] == 1)
                 {
@@ -123,7 +123,7 @@ namespace MethodLibrary
                     P1++;
                 }
             }
-           
+
 
 
             return P1;
@@ -171,19 +171,19 @@ namespace MethodLibrary
             return cnDotsCount;
         }
 
-            
+
 
         public static async Task<int[,]> DoZonga(int[,] dataGrid)
         {
-            int[,] arr = new int[50, 50];
-            int[,] arr2 = new int[50, 50];
+            int[,] arr = new int[dataGrid.GetLength(0), dataGrid.GetLength(1)];
+            int[,] arr2 = new int[51, 51];
             int stepsOfAction = 1;
 
             return await Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 51; i++)
                 {
-                    for (int j = 0; j < 50; j++)
+                    for (int j = 0; j < 51; j++)
                     {
                         if (dataGrid[j, i] == 1)
                         {
@@ -203,23 +203,23 @@ namespace MethodLibrary
                     stepsOfAction = 0;
 
 
-                    Parallel.For(0, 49, i =>
+                    Parallel.For(1, 50, i =>
                     {
-                        for (int j = 1; j < 49; j++)
+                        for (int j = 1; j < 50; j++)
                         {
 
                             if (arr[i, j] == 1)
                             {
                                 var listOfBlackPixels = new List<int>
                                     {
-                                   arr[i - 1, j - 1],
-                                   arr[i - 1, j],
-                                   arr[i - 1, j + 1],
-                                   arr[i, j - 1],
-                                   arr[i, j + 1],
-                                   arr[i + 1, j - 1],
-                                   arr[i + 1, j + 1],
-                                   arr[i + 1, j]
+                                       arr[i - 1, j - 1],
+                                       arr[i - 1, j],
+                                       arr[i - 1, j + 1],
+                                       arr[i, j - 1],
+                                       arr[i, j + 1],
+                                       arr[i + 1, j - 1],
+                                       arr[i + 1, j + 1],
+                                       arr[i + 1, j]
                                     };
 
 
@@ -292,18 +292,18 @@ namespace MethodLibrary
                     if (stepsOfAction == 0)
                     {
 
-                        for (int i = 0; i < 50; i++)
+                        for (int i = 0; i < 51; i++)
                         {
-                            for (int j = 0; j < 50; j++)
+                            for (int j = 0; j < 51; j++)
                             {
                                 dataGrid[j, i] = 0;
 
                             }
                         }
 
-                        for (int i = 0; i < 50; i++)
+                        for (int i = 0; i < 51; i++)
                         {
-                            for (int j = 0; j < 50; j++)
+                            for (int j = 0; j < 51; j++)
                             {
                                 dataGrid[j, i] = arr2[i, j];
                             }
@@ -314,12 +314,22 @@ namespace MethodLibrary
                     {
                         counter++;
                         arr = arr2;
-                        arr2 = new int[50, 50];
+                        arr2 = new int[51, 51];
                     }
 
                 }
 
-                return dataGrid;
+                int[,] resultArray = new int[50, 50];
+
+                for (int i = 0; i < 50; i++)
+                {
+                    for (int j = 0; j < 50; j++)
+                    {
+                        resultArray[i, j] = dataGrid[i + 1, j + 1];
+                    }
+                }
+
+                return resultArray;
             });
 
         }
