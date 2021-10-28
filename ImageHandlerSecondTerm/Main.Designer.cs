@@ -405,6 +405,7 @@ namespace ImageHandlerSecondTerm
             this.dataGridView8.RowTemplate.Height = 25;
             this.dataGridView8.Size = new System.Drawing.Size(663, 611);
             this.dataGridView8.TabIndex = 7;
+            this.dataGridView8.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView8_CellDoubleClick);
             // 
             // pictureBox6
             // 
@@ -458,12 +459,12 @@ namespace ImageHandlerSecondTerm
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(444, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 198);
+            this.panel2.Size = new System.Drawing.Size(179, 198);
             this.panel2.TabIndex = 12;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(21, 147);
+            this.button3.Location = new System.Drawing.Point(9, 137);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(156, 35);
             this.button3.TabIndex = 14;
@@ -475,7 +476,7 @@ namespace ImageHandlerSecondTerm
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(155, 53);
+            this.label10.Location = new System.Drawing.Point(137, 52);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(22, 25);
             this.label10.TabIndex = 13;
@@ -485,7 +486,7 @@ namespace ImageHandlerSecondTerm
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(155, 14);
+            this.label5.Location = new System.Drawing.Point(137, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(22, 25);
             this.label5.TabIndex = 12;
@@ -495,7 +496,7 @@ namespace ImageHandlerSecondTerm
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(21, 56);
+            this.label7.Location = new System.Drawing.Point(9, 55);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(130, 21);
             this.label7.TabIndex = 11;
@@ -505,7 +506,7 @@ namespace ImageHandlerSecondTerm
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(21, 17);
+            this.label6.Location = new System.Drawing.Point(9, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(128, 21);
             this.label6.TabIndex = 10;
@@ -515,30 +516,36 @@ namespace ImageHandlerSecondTerm
             // 
             this.dataGridView6.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Location = new System.Drawing.Point(963, 224);
+            this.dataGridView6.Location = new System.Drawing.Point(914, 236);
             this.dataGridView6.Name = "dataGridView6";
+            this.dataGridView6.RowHeadersVisible = false;
             this.dataGridView6.RowTemplate.Height = 25;
-            this.dataGridView6.Size = new System.Drawing.Size(386, 617);
+            this.dataGridView6.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView6.Size = new System.Drawing.Size(399, 605);
             this.dataGridView6.TabIndex = 7;
             // 
             // dataGridView5
             // 
             this.dataGridView5.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(699, 224);
+            this.dataGridView5.Location = new System.Drawing.Point(655, 236);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowTemplate.Height = 25;
-            this.dataGridView5.Size = new System.Drawing.Size(228, 617);
+            this.dataGridView5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView5.Size = new System.Drawing.Size(228, 605);
             this.dataGridView5.TabIndex = 6;
             // 
             // dataGridView4
             // 
             this.dataGridView4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(170)))), ((int)(((byte)(255)))));
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(8, 224);
+            this.dataGridView4.ColumnHeadersVisible = false;
+            this.dataGridView4.Location = new System.Drawing.Point(8, 236);
             this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersVisible = false;
             this.dataGridView4.RowTemplate.Height = 25;
-            this.dataGridView4.Size = new System.Drawing.Size(658, 617);
+            this.dataGridView4.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGridView4.Size = new System.Drawing.Size(605, 605);
             this.dataGridView4.TabIndex = 5;
             this.dataGridView4.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellDoubleClick);
             // 

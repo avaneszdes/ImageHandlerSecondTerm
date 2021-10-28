@@ -42,7 +42,7 @@ namespace MethodLibrary
 
         public static int GetA8(int[,] dataGrid, int j, int i)
         {
-            if (i > 0 && j > 0 && i < 49 && j < 49)
+            if (i > 0 && j > 0 && i < dataGrid.GetLength(0) - 1 && j < dataGrid.GetLength(1) - 1)
             {
                 var left = dataGrid[j, i - 1];
                 var right = dataGrid[j, i + 1];
@@ -158,9 +158,9 @@ namespace MethodLibrary
 
             await Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < dataGrid.GetLength(0) - 1; i++)
+                for (int i = 0; i < dataGrid.GetLength(0); i++)
                 {
-                    if (dataGrid[i, 3] == 3)
+                    if (dataGrid[i, 4] == 3)
                     {
                         cnDotsCount++;
                     }

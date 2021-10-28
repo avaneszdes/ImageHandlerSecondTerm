@@ -9,6 +9,35 @@ namespace MethodLibrary
 {
     public static class DataGridViewExtension
     {
+        public static async Task<DataGridView> ReDrowCells(this DataGridView dataGridView)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                dataGridView.Invoke(new Action(() =>
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
+                    {
+                        for (int j = 0; j < dataGridView.Columns.Count; j++)
+                        {
+                            if (dataGridView[i, j].Value.ToString() == "1")
+                            {
+                                dataGridView[i, j].Style.BackColor = Color.Black;
+                            }
+                            else
+                            {
+                                dataGridView[i, j].Style.BackColor = Color.White;
+                            }
+                        }
+                    }
+
+
+
+                }));
+                return dataGridView;
+            });
+        }
+
+
         public static void Clear(this DataGridView dataGrid)
         {
             dataGrid.Rows.Clear();
@@ -51,7 +80,7 @@ namespace MethodLibrary
         public static int GetCNDataGrid(this DataGridView dataGrid, int i, int j)
         {
 
-            if(i < 48)
+            if(i < 49)
             {
                 var listOfRedPixels = new List<Color>
                                     {

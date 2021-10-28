@@ -8,33 +8,7 @@ namespace MethodLibrary
 {
     public static class WinFormsComponentHandler
     {
-        public static async Task<DataGridView> ReDrowCells(DataGridView dataGridView)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                dataGridView.Invoke(new Action(() =>
-                {
-                    for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
-                    {
-                        for (int j = 0; j < dataGridView.Columns.Count; j++)
-                        {
-                            if (dataGridView[i, j].Value.ToString() == "1")
-                            {
-                                dataGridView[i, j].Style.BackColor = Color.Black;
-                            }
-                            else
-                            {
-                                dataGridView[i, j].Style.BackColor = Color.White;
-                            }
-                        }
-                    }
-
-
-
-                }));
-                return dataGridView;
-            });
-        }
+       
 
         public static async Task<int[,]> GetArrayFromDataGridView(DataGridView dataGridView)
         {
@@ -90,11 +64,11 @@ namespace MethodLibrary
         {
             await Task.Factory.StartNew(() =>
            {
-               for (int i = 0; i < data.GetLength(0); i++)
+               for (int i = 1; i < data.GetLength(0); i++)
                {
-                   for (int j = 0; j < data.GetLength(1); j++)
+                   for (int j = 1; j < data.GetLength(1); j++)
                    {
-                       dataGrid[j, i].Value = data[i, j];
+                       dataGrid[j - 1, i - 1].Value = data[i, j];
                    }
                }
            });
