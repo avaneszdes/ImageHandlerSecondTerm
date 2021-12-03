@@ -64,11 +64,11 @@ namespace MethodLibrary
         {
             await Task.Factory.StartNew(() =>
            {
-               for (int i = 1; i < data.GetLength(0); i++)
+               for (int i = 0; i < data.GetLength(0); i++)
                {
-                   for (int j = 1; j < data.GetLength(1); j++)
+                   for (int j = 0; j < data.GetLength(1); j++)
                    {
-                       dataGrid[j - 1, i - 1].Value = data[i, j];
+                       dataGrid[j, i].Value = data[i, j];
                    }
                }
            });

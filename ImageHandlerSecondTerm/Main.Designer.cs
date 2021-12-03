@@ -48,12 +48,10 @@ namespace ImageHandlerSecondTerm
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
@@ -88,7 +86,6 @@ namespace ImageHandlerSecondTerm
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -269,8 +266,10 @@ namespace ImageHandlerSecondTerm
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.tabPage3.Controls.Add(this.label11);
             this.tabPage3.Controls.Add(this.dataGridView7);
-            this.tabPage3.Controls.Add(this.panel3);
+            this.tabPage3.Controls.Add(this.textBox5);
+            this.tabPage3.Controls.Add(this.textBox4);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.pictureBox7);
@@ -284,6 +283,15 @@ namespace ImageHandlerSecondTerm
             this.tabPage3.Text = "Lab 3";
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(507, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 15);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Gorizontal zond";
+            // 
             // dataGridView7
             // 
             this.dataGridView7.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
@@ -293,35 +301,12 @@ namespace ImageHandlerSecondTerm
             this.dataGridView7.Name = "dataGridView7";
             this.dataGridView7.RowTemplate.Height = 25;
             this.dataGridView7.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView7.Size = new System.Drawing.Size(335, 617);
+            this.dataGridView7.Size = new System.Drawing.Size(498, 617);
             this.dataGridView7.TabIndex = 16;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.radioButton2);
-            this.panel3.Controls.Add(this.textBox5);
-            this.panel3.Controls.Add(this.textBox4);
-            this.panel3.Controls.Add(this.radioButton1);
-            this.panel3.Location = new System.Drawing.Point(804, 6);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 100);
-            this.panel3.TabIndex = 15;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(13, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(79, 19);
-            this.radioButton2.TabIndex = 15;
-            this.radioButton2.Text = "Gorizontal";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(67, 62);
+            this.textBox5.Location = new System.Drawing.Point(640, 6);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(31, 23);
             this.textBox5.TabIndex = 13;
@@ -329,23 +314,11 @@ namespace ImageHandlerSecondTerm
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(31, 62);
+            this.textBox4.Location = new System.Drawing.Point(604, 6);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(30, 23);
             this.textBox4.TabIndex = 12;
             this.textBox4.Text = "0";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(13, 12);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(72, 19);
-            this.radioButton1.TabIndex = 14;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Diagonal";
-            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -371,6 +344,7 @@ namespace ImageHandlerSecondTerm
             this.pictureBox7.Size = new System.Drawing.Size(175, 166);
             this.pictureBox7.TabIndex = 9;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Click += new System.EventHandler(this.pictureBox7_Click);
             // 
             // dataGridView8
             // 
@@ -405,6 +379,7 @@ namespace ImageHandlerSecondTerm
             this.dataGridView8.RowTemplate.Height = 25;
             this.dataGridView8.Size = new System.Drawing.Size(663, 611);
             this.dataGridView8.TabIndex = 7;
+            this.dataGridView8.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView8_CellContentClick);
             this.dataGridView8.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView8_CellDoubleClick);
             // 
             // pictureBox6
@@ -652,8 +627,6 @@ namespace ImageHandlerSecondTerm
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -709,14 +682,12 @@ namespace ImageHandlerSecondTerm
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataGridView7;
+        private System.Windows.Forms.Label label11;
     }
 }
 

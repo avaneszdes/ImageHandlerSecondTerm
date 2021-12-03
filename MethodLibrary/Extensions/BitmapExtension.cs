@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using MethodLibrary.Extensions;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace MethodLibrary
@@ -23,6 +24,30 @@ namespace MethodLibrary
             }
 
             return cnDotsCount.ToString();
+
+        }
+
+
+        public static int GetCountCnDotsFromArray(this int[,] arr)
+        {
+
+            //[16,22]
+
+            var cnDotsCount = 0;
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    var cn = Alghoritm.IsPointCN(arr, j + 1, i + 1);
+                    if (cn >= 3 && arr[j + 1, i + 1] == 1)
+                    {
+                        cnDotsCount++;
+                    }
+                }
+
+            }
+
+            return cnDotsCount;
 
         }
     }

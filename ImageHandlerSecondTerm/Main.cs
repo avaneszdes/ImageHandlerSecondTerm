@@ -6,6 +6,7 @@ using MethodLibrary;
 using MethodLibrary.Extensions;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -21,7 +22,7 @@ namespace ImageHandlerSecondTerm
     public partial class Main : Form
     {
         List<int>? listOfDifferentNumbers;
-        string[] valuesForSmallDataGrid = { "К", "КПП", "ДПП", "ЕУС" };
+        readonly string[] valuesForDataGrid3 = { "К", "КПП", "ДПП", "ЕУС" };
         Chart chart1 = new();
         public Main()
         {
@@ -30,27 +31,23 @@ namespace ImageHandlerSecondTerm
             burgerPanel.Location = new Point(0, -400);
             panel1.Location = new Point(0, 0);
             panel1.Width = this.Width;
-
             chart1.Location = new Point(630, -6);
             chart1.Width = 710;
             chart1.Height = 250;
-
-
-
             this.tabPage2.Controls.Add(chart1);
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            textBox4.Hide();
-            textBox5.Hide();
+            textBox4.Show();
+            textBox5.Show();
             burgerPanel.Visible = false;
             await dataGridView3.AddColAndRow(4, 5);
             dataGridView3.RowHeadersWidth = 60;
             dataGridView3.EnableHeadersVisualStyles = false;
             for (int i = 1; i < 5; i++)
             {
-                dataGridView3[i - 1, 0].Value = valuesForSmallDataGrid[i - 1];
+                dataGridView3[i - 1, 0].Value = valuesForDataGrid3[i - 1];
                 dataGridView3.Rows[i].HeaderCell.Value = i.ToString();
                 dataGridView3.Rows[i].HeaderCell.Style.BackColor = Color.FromArgb(170, 228, 166);
                 dataGridView3.Columns[i - 1].Width = 70;
@@ -74,13 +71,14 @@ namespace ImageHandlerSecondTerm
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-            await dataGridView7.AddColAndRow(4, 1);
+            await dataGridView7.AddColAndRow(6, 1);
             dataGridView7.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView7.Columns[0].HeaderCell.Value = "File name";
-            dataGridView7.Columns[1].HeaderCell.Value = "Left Zonf";
-            dataGridView7.Columns[2].HeaderCell.Value = "Right Zond";
-            dataGridView7.Columns[3].HeaderCell.Value = "Letter";
-
+            dataGridView7.Columns[1].HeaderCell.Value = "Left vertical Zonf";
+            dataGridView7.Columns[2].HeaderCell.Value = "Right vertical Zond";
+            dataGridView7.Columns[3].HeaderCell.Value = "Gorizontal Top Zonf";
+            dataGridView7.Columns[4].HeaderCell.Value = "Gorizontal Bottom Zond";
+            dataGridView7.Columns[5].HeaderCell.Value = "Letter";
 
             await dataGridView6.AddColAndRow(5, 1);
             dataGridView6.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -345,7 +343,7 @@ namespace ImageHandlerSecondTerm
 
 
                 await dataGridView4.AddColAndRow(bitmap.Width, bitmap.Height);
-                await dataGridView4.AddDataToDataGridView(BitmapHandler.GetBinaryArrayFromBitmap(bitmap));
+                await dataGridView4.AddDataToDataGridView(BitmapHandler.GetBinaryArrayFromBitmap(bitmap).RedusingIntArray());
                 await dataGridView4.DrowCellsFromBinaryBitmap(bitmap, "binary");
 
                 var dataGrid4 = await WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView4);
@@ -354,7 +352,7 @@ namespace ImageHandlerSecondTerm
                 var zongaSunyaresult = await Alghoritm.DoZonga(dataGrid4);
                 zongaSunyaresult = zongaSunyaresult.ExpandIntArray();
 
-                await dataGridView4.AddDataToDataGridView(zongaSunyaresult);
+                await dataGridView4.AddDataToDataGridView(zongaSunyaresult.RedusingIntArray());
 
                 var countOfBlackPixels = Alghoritm.GetCountOfBlackPixels(dataGrid4);
 
@@ -490,7 +488,7 @@ namespace ImageHandlerSecondTerm
 
         private async void pictureBox6_Click(object sender, EventArgs e)
         {
-                var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
+            var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
             if (!string.IsNullOrEmpty(isOpen))
             {
                 var bitmap = new Bitmap(isOpen);
@@ -507,33 +505,29 @@ namespace ImageHandlerSecondTerm
                     await dataGridView8.AddColAndRow(bitmap.Width, bitmap.Height);
                 }
 
-                await dataGridView8.AddDataToDataGridView(BitmapHandler.GetBinaryArrayFromBitmap(bitmap));
+                await dataGridView8.AddDataToDataGridView(BitmapHandler.GetBinaryArrayFromBitmap(bitmap).RedusingIntArray());
                 await dataGridView8.ReDrowCells();
 
                 var dataGrid8 = await WinFormsComponentHandler.GetArrayFromDataGridView(dataGridView8);
                 var zongaSunyaresult = await Alghoritm.DoZonga(dataGrid8);
 
                 zongaSunyaresult = zongaSunyaresult.ExpandIntArray();
-                await dataGridView8.AddDataToDataGridView(zongaSunyaresult);
+                await dataGridView8.AddDataToDataGridView(zongaSunyaresult.RedusingIntArray());
                 await dataGridView8.ReDrowCells();
 
+                var con = await Alghoritm.GetKonecDotsAsync(zongaSunyaresult);
+                var cn = zongaSunyaresult.GetCountCnDotsFromArray();
 
-                if (radioButton1.Checked == true)
+
+                var zondRow = int.Parse(textBox4.Text);
+                var zondRow2 = int.Parse(textBox5.Text);
+                if (zondRow > 0 && zondRow2 > 0)
                 {
-
-                    textBox4.Hide();
-                    textBox5.Hide();
-                    pictureBox7.Image = GetBitmapWithDiagonalZond(zongaSunyaresult);
-
+                    pictureBox7.Image = GetBitmapWithZond(zongaSunyaresult, zondRow, zondRow2);
                 }
-                else if (radioButton2.Checked == true)
-                {
-                    textBox4.Show();
-                    textBox5.Show();
-                    var zondRow = int.Parse(textBox4.Text);
-                    var zondRow2 = int.Parse(textBox5.Text);
-                    pictureBox7.Image = GetBitmapWithGorizontallZond(zongaSunyaresult, zondRow, zondRow2);
-                }
+
+                pictureBox7.Image = GetBitmapWithZond(zongaSunyaresult);
+
 
                 pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
 
@@ -544,11 +538,12 @@ namespace ImageHandlerSecondTerm
                 dataGridView7[0, dataGridView7.Rows.Count - 2].Value = fileName[^1];
                 dataGridView7[1, dataGridView7.Rows.Count - 2].Value = leftDiagonalRedPixCount;
                 dataGridView7[2, dataGridView7.Rows.Count - 2].Value = rightDiagonalRedPixCount;
+                
 
-                var letter = leftDiagonalRedPixCount == 2 && rightDiagonalRedPixCount == 2 ? "В" :
-                    leftDiagonalRedPixCount == 3 && rightDiagonalRedPixCount == 2 ? "Б" :
-                    leftDiagonalRedPixCount == 2 && rightDiagonalRedPixCount == 4 ? "З" : "?";
-                dataGridView7[3, dataGridView7.Rows.Count - 2].Value = letter;
+                var letter = con == 3 && cn == 1 ? "З" :
+                    con == 1 && cn == 1 || con == 1 && cn == 2 ? "Б" :
+                    con == 0 && cn == 2 ? "В" : "?";
+                dataGridView7[5, dataGridView7.Rows.Count - 2].Value = letter;
 
                 dataGridView7.Rows.Add(1);
 
@@ -556,7 +551,7 @@ namespace ImageHandlerSecondTerm
         }
 
 
-        public Bitmap GetBitmapWithDiagonalZond(int[,] zongaResult)
+        public Bitmap GetBitmapWithZond(int[,] zongaResult, int firstZondRow = 18, int secondZondRow = 38)
         {
             var bitmap = new Bitmap(50, 50);
             int[,] arrLeftZond = new int[50, 50];
@@ -572,7 +567,7 @@ namespace ImageHandlerSecondTerm
 
             for (int i = 0; i < bitmap.Width; i++)
             {
-                bitmap.SetPixel(i, i , Color.Green);
+                bitmap.SetPixel(i, i, Color.Green);
                 bitmap.SetPixel(bitmap.Width - i - 1, i, Color.Green);
                 dataGridView8[i, i].Style.BackColor = Color.Green;
                 dataGridView8[bitmap.Width - i - 1, i].Style.BackColor = Color.Green;
@@ -587,6 +582,9 @@ namespace ImageHandlerSecondTerm
                 }
             }
 
+            var first = 0;
+            var second = 0;
+
             for (int i = 0; i < bitmap.Width; i++)
             {
                 for (int j = 0; j < bitmap.Width; j++)
@@ -595,19 +593,88 @@ namespace ImageHandlerSecondTerm
                     {
                         bitmap.SetPixel(j, i, Color.Red);
                         dataGridView8[j, i].Style.BackColor = Color.Red;
+                       
                     }
                 }
 
                 for (int k = 0; k < bitmap.Width; k++)
                 {
-
                     if (zongaResult[i, 49 - k] == 1 && arrRightZond[i, 49 - k] == 1)
                     {
                         bitmap.SetPixel(49 - k, i, Color.Red);
                         dataGridView8[49 - k, i].Style.BackColor = Color.Red;
+                        
                     }
                 }
+
+               
             }
+
+
+
+            for (int i = 0; i < 50; i++)
+            {
+                bitmap.SetPixel(i, firstZondRow - 1, Color.Green);
+                bitmap.SetPixel(i, secondZondRow - 1, Color.Green);
+                dataGridView8[i, firstZondRow].Style.BackColor = Color.Green;
+                dataGridView8[i, secondZondRow].Style.BackColor = Color.Green;
+
+                if (dataGridView8[i, firstZondRow].Value.ToString() == "1" && dataGridView8[i - 1, firstZondRow].Style.BackColor != Color.Red)
+                {
+                    bitmap.SetPixel(i, firstZondRow - 1, Color.Red);
+                    dataGridView8[i, firstZondRow].Style.BackColor = Color.Red;
+                }
+
+                if (dataGridView8[i, secondZondRow].Value.ToString() == "1" && dataGridView8[i - 1, firstZondRow].Style.BackColor != Color.Red)
+                {
+                    bitmap.SetPixel(i, secondZondRow - 1, Color.Red);
+                    dataGridView8[i, secondZondRow].Style.BackColor = Color.Red;
+
+                }
+            }
+
+
+            for (int i = 1; i < 49; i++)
+            {
+
+                if (dataGridView8[i, firstZondRow].Value.ToString() == "1" && dataGridView8[i + 1, firstZondRow].Value.ToString() == "1")
+                {
+                    bitmap.SetPixel(i, firstZondRow, Color.Blue);
+                    dataGridView8[i, firstZondRow].Style.BackColor = Color.Blue;
+                   
+                }
+
+                if (dataGridView8[i, secondZondRow].Value.ToString() == "1" && dataGridView8[i + 1, secondZondRow].Value.ToString() == "1")
+                {
+                    bitmap.SetPixel(i, secondZondRow - 1, Color.Blue);
+                    dataGridView8[i, secondZondRow].Style.BackColor = Color.Blue;
+                    
+                }
+            }
+
+
+            for (int i = 1; i < 49; i++)
+            {
+
+                if (dataGridView8[i, firstZondRow].Value.ToString() == "1" && dataGridView8[i - 1, firstZondRow].Style.BackColor != Color.Red)
+                {
+                    bitmap.SetPixel(i, firstZondRow - 1, Color.Red);
+                    dataGridView8[i, firstZondRow].Style.BackColor = Color.Red;
+                    first++;
+                }
+
+                if (dataGridView8[i, secondZondRow].Value.ToString() == "1" && dataGridView8[i - 1, firstZondRow].Style.BackColor != Color.Red)
+                {
+                    bitmap.SetPixel(i, secondZondRow - 1, Color.Red);
+                    dataGridView8[i, secondZondRow].Style.BackColor = Color.Red;
+                    second++;
+
+                }
+            }
+
+
+            dataGridView7[3, dataGridView7.Rows.Count - 2].Value = first;
+            dataGridView7[4, dataGridView7.Rows.Count - 2].Value = second;
 
             return bitmap;
         }
@@ -693,20 +760,6 @@ namespace ImageHandlerSecondTerm
 
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton2.Checked == true)
-            {
-                textBox4.Show();
-                textBox5.Show();
-            }
-            else
-            {
-                textBox4.Hide();
-                textBox5.Hide();
-            }
-        }
-
         private async void pictureBox8_Click(object sender, EventArgs e)
         {
             var isOpen = WinFormsComponentHandler.IsOpenFileDialogOk(openFileDialog1);
@@ -787,6 +840,16 @@ namespace ImageHandlerSecondTerm
         private void dataGridView8_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             MessageBox.Show($"[{e.RowIndex},{e.ColumnIndex}]");
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView8_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

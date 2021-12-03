@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.OCR;
+using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -253,6 +256,21 @@ namespace MethodLibrary
             }
 
             return arr;
+        }
+
+
+
+        public static string GetLetterFromImage(string pathToImage)
+        {
+
+            Tesseract t = new(@"C:\Users\avane\source\repos\ImageHandlerSecondTerm\ImageHandlerSecondTerm\bin\Debug", "rus", OcrEngineMode.TesseractLstmCombined);
+            t.SetImage(new Image<Bgr, byte>(pathToImage));
+            t.Recognize();
+
+            var letter = t.GetUTF8Text();
+            t.Dispose();
+
+            return letter;
         }
        
     }
